@@ -1,186 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
      id="root"
      width="100%"
      height="100%"
-     style="position:fixed;inset:0;display:block;width:100vw;height:100vh;margin:0;padding:0;border:0;overflow:hidden;background:#07120c;">
-
+     style="position:fixed;inset:0;width:100vw;height:100vh;margin:0;padding:0;overflow:hidden;background:#07120c;">
   <title>Timmys Math Work — Auto Update</title>
-
-  <style><![CDATA[
-    :root {
-      margin: 0 !important;
-      padding: 0 !important;
-      border: 0 !important;
-      overflow: hidden !important;
-      background: #07120c !important;
-    }
-  ]]></style>
-
   <rect width="100%" height="100%" fill="#07120c"/>
-
-  <foreignObject id="container"
-                 x="0"
-                 y="0"
-                 width="100%"
-                 height="100%"
-                 style="margin:0;padding:0;overflow:hidden;">
-
+  <foreignObject x="0" y="0" width="100%" height="100%">
     <div xmlns="http://www.w3.org/1999/xhtml"
-         style="position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;overflow:hidden;background:#07120c;">
-
-      <iframe
-        id="site"
-        title="Timmys Math Work"
-        frameborder="0"
-        style="position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;background:#07120c;"
-        allow="fullscreen; autoplay; clipboard-read; clipboard-write; display-capture"
-        allowfullscreen="allowfullscreen">
-      </iframe>
-
-      <div id="status"
-           role="status"
-           style="position:absolute;right:10px;bottom:10px;z-index:10;max-width:80%;padding:8px 12px;border-radius:8px;background:#0d2417;color:#effff2;font:12px Arial,sans-serif;pointer-events:none;">
-        Loading…
+         style="position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#07120c;">
+      <iframe id="site"
+              title="Timmys Math Work"
+              frameborder="0"
+              style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#07120c;"
+              allow="fullscreen; autoplay; clipboard-read; clipboard-write; display-capture"
+              allowfullscreen="allowfullscreen"></iframe>
+      <div id="status" role="status"
+           style="position:absolute;right:10px;bottom:10px;z-index:10;padding:8px 12px;border-radius:8px;background:#0d2417;color:#effff2;font:12px Arial,sans-serif;pointer-events:none;">
+        Loading...
       </div>
     </div>
   </foreignObject>
-
   <script type="application/ecmascript"><![CDATA[
     (() => {
       "use strict";
 
-      const BASE =
-        "https://cdn.jsdelivr.net/gh/" +
-        "timmysmathwork/Real-Auto-update@main/";
-
+      const BASE = "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/";
       const FILE_URL = BASE + "updated-site.html";
       const CHECK_INTERVAL = 60000;
+      const TIMEOUT = 20000;
 
-      const root = document.getElementById("root");
-      const container = document.getElementById("container");
       const frame = document.getElementById("site");
       const status = document.getElementById("status");
 
       let currentHTML = null;
       let checking = false;
-      let statusTimer;
-
-      function fitWindow() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-
-        root.setAttribute("width", width);
-        root.setAttribute("height", height);
-        container.setAttribute("width", width);
-        container.setAttribute("height", height);
-      }
+      let statusTimer = null;
 
       function showStatus(message, persistent = false) {
         clearTimeout(statusTimer);
         status.textContent = message;
         status.style.display = "block";
-
         if (!persistent) {
           statusTimer = setTimeout(() => {
             status.style.display = "none";
-          }, 5000);
+          }, 3500);
         }
       }
 
       function displayHTML(html) {
-        const baseTag = '<base href="' + BASE + '">';
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        if (!doc.documentElement || !doc.head || !doc.body) {
+          throw new Error("Invalid HTML document");
+        }
 
-        const resetStyle = `
-          <style id="svg-window-reset">
-            html {
-              width: 100% !important;
-              min-height: 100% !important;
-              margin: 0 !important;
-              padding: 0 !important;
-              border: 0 !important;
-              background-color: #07120c !important;
-            }
+        // Make relative URLs resolve against the GitHub repository.
+        let base = doc.querySelector("base");
+        if (!base) {
+          base = doc.createElement("base");
+          doc.head.prepend(base);
+        }
+        base.href = BASE;
 
-            body {
-              width: 100% !important;
-              min-height: 100vh !important;
-              margin: 0 !important;
-              padding: 0 !important;
-              border: 0 !important;
-              background-color: #07120c !important;
-            }
-          </style>
+        let resetStyle = doc.getElementById("svg-window-reset");
+        if (resetStyle) resetStyle.remove();
+
+        resetStyle = doc.createElement("style");
+        resetStyle.id = "svg-window-reset";
+        resetStyle.textContent = `
+          html { width:100% !important; min-height:100% !important; margin:0 !important; }
+          body { width:100% !important; min-height:100vh !important; margin:0 !important; }
         `;
+        doc.head.appendChild(resetStyle);
 
-        let output;
-
-        if (/<head\b[^>]*>/i.test(html)) {
-          output = html.replace(
-            /<head\b[^>]*>/i,
-            match => match + baseTag
-          );
-        } else {
-          output = baseTag + html;
-        }
-
-        if (/<\/head\s*>/i.test(output)) {
-          output = output.replace(
-            /<\/head\s*>/i,
-            resetStyle + "</head>"
-          );
-        } else {
-          output = resetStyle + output;
-        }
-
-        frame.srcdoc = output;
+        frame.srcdoc = "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
       }
 
       async function checkForUpdates() {
         if (checking || document.hidden) return;
-
         checking = true;
 
         const controller = new AbortController();
-
-        const timeout = setTimeout(() => {
-          controller.abort();
-        }, 20000);
+        const timeout = setTimeout(() => controller.abort(), TIMEOUT);
 
         try {
-          const response = await fetch(FILE_URL, {
-            cache: "no-store",
-            signal: controller.signal
-          });
+          const response = await fetch(
+            FILE_URL + "?cache_bust=" + Date.now(),
+            { method: "GET", cache: "no-store", signal: controller.signal }
+          );
 
-          if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-          }
+          if (!response.ok) throw new Error("HTTP " + response.status);
 
           const html = await response.text();
-
-          if (!/<html\b|<!doctype\s+html/i.test(html)) {
-            throw new Error("Expected an HTML page.");
+          if (!/<html[\s>]/i.test(html) && !/<!doctype\s+html/i.test(html)) {
+            throw new Error("Downloaded file is not HTML");
           }
 
           if (html !== currentHTML) {
             const firstLoad = currentHTML === null;
-
             displayHTML(html);
             currentHTML = html;
-
-            showStatus(
-              firstLoad
-                ? "Site loaded"
-                : "Updated version loaded"
-            );
+            showStatus(firstLoad ? "Site loaded" : "Updated version loaded");
           }
         } catch (error) {
+          console.error("Auto-update error:", error);
           showStatus(
             currentHTML === null
-              ? "Loading failed: " + error.message +
-                ". Retrying every 60 seconds."
-              : "Update unavailable; keeping current version.",
+              ? "Loading failed. Retrying automatically..."
+              : "Update unavailable. Keeping current version.",
             currentHTML === null
           );
         } finally {
@@ -189,17 +117,11 @@
         }
       }
 
-      fitWindow();
-      window.addEventListener("resize", fitWindow);
-
       checkForUpdates();
       setInterval(checkForUpdates, CHECK_INTERVAL);
 
       document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) {
-          fitWindow();
-          checkForUpdates();
-        }
+        if (!document.hidden) checkForUpdates();
       });
     })();
   ]]></script>
