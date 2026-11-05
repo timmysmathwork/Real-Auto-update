@@ -18,7 +18,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Timmys Math Work</title>
+  <title>Timmy AI</title>
   <link id="dynamic-favicon" rel="icon" href="data:," />
   <style>
     :root {
@@ -1561,10 +1561,42 @@
       color: var(--green); font-size: 13px; font-weight: 700;
     }
 
-      /* Keep only the YouTube playback bubble, not the custom music bar. */
-    .mu-dock .mu-playerbar { display: none !important; }
   </style>
   <style>#ax-browser[hidden],#apps-page .gx-card[hidden]{display:none!important}</style>
+
+<style id="music-now-playing-redesign">
+#music-page [hidden]{display:none!important}
+#music-page .mu-shell{--text:#fff;--muted:#b3b3b3;--green:#1ed760;--green-dark:#1ed760}
+#music-page .mu-dock{position:relative;inset:auto;width:100%;min-height:640px;align-items:center;gap:22px;margin:0;padding:24px 28px 40px;box-sizing:border-box;border-radius:20px;background:radial-gradient(ellipse at 50% -15%,#386451 0%,#1c3028 36%,#121212 72%);color:#fff;box-shadow:0 24px 70px #0006}
+#music-page .mu-now-header{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:640px}
+#music-page .mu-now-back{border:0;border-radius:999px;padding:10px 16px;background:#ffffff12;color:white;cursor:pointer;font:inherit}
+#music-page .mu-now-label{font-size:11px;font-weight:700;letter-spacing:2px;color:#ddd}
+#music-page .mu-playerbar{display:grid;grid-template-columns:1fr 1fr;gap:20px 12px;width:min(100%,440px);padding:12px 0;background:none;border:0;box-shadow:none;backdrop-filter:none;border-radius:0}
+#music-page .mu-bar-art{grid-column:1/-1;width:100%;height:auto;aspect-ratio:1;border-radius:10px;border:0;box-shadow:0 16px 48px #0008;background:#242424}
+#music-page .mu-bar-art img{width:100%;height:100%;object-fit:cover}
+#music-page .mu-bar-info{grid-column:1/-1;min-width:0;margin-top:8px}
+#music-page .mu-bar-title{font-size:clamp(22px,4vw,32px);line-height:1.2;letter-spacing:-.7px;color:#fff}
+#music-page .mu-bar-artist{font-size:15px;color:#b3b3b3;margin-top:8px}
+#music-page .mu-bar-controls{grid-column:1/-1;grid-row:5;justify-content:center;gap:30px}
+#music-page .mu-ctl{background:none;border:0;color:#eee;width:44px;height:44px;cursor:pointer}
+#music-page .mu-ctl.main{width:66px;height:66px;background:#1ed760;color:#000;box-shadow:0 6px 24px #0003}
+#music-page .mu-ctl.main:hover{background:#3be477;transform:scale(1.04)}
+#music-page .mu-playerbar>.mu-seekwrap{grid-column:1/-1;min-width:0;display:flex;gap:12px}
+#music-page .mu-playerbar>.mu-seekwrap:has(.mu-seek){grid-row:4}
+#music-page .mu-playerbar>.mu-seekwrap:has(.mu-vol){grid-column:1;grid-row:6}
+#music-page .mu-seek{min-width:0;width:100%;accent-color:#1ed760}
+#music-page .mu-time{font-variant-numeric:tabular-nums;color:#b3b3b3;min-width:36px;font-size:11px}
+#music-page .mu-vol{width:100px;accent-color:#1ed760}
+#music-page .mu-bar-actions{grid-column:2;grid-row:6;justify-content:flex-end}
+#music-page .mu-act{color:#b3b3b3;cursor:pointer}
+#music-page .mu-act.on{color:#1ed760}
+#music-page .mu-video{width:min(100%,440px);max-width:440px}
+@media(max-width:600px){#music-page .mu-dock{padding:18px 18px 28px;min-height:0;border-radius:14px}#music-page .mu-now-label{font-size:10px;letter-spacing:1px}}
+</style>
+
+
+
+
 </head>
 <body>
   <div class="app">
@@ -1572,7 +1604,7 @@
       <div class="sidebar-header">
         <div class="brand">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-          Timmys Math Work
+          Timmy AI
         </div>
 
         <button id="close-sidebar" class="mobile-menu" type="button" aria-label="Close menu">
@@ -1645,7 +1677,7 @@
         </button>
 
         <div>
-          <div id="topbar-title" class="topbar-title">Timmys Math Work</div>
+          <div id="topbar-title" class="topbar-title">Timmy AI</div>
           <div id="topbar-subtitle" class="topbar-subtitle">Choose a model or API key</div>
         </div>
       </header>
@@ -1653,12 +1685,8 @@
       <section id="ai-page" class="page active">
         <div class="ai-page">
           <div id="welcome" class="welcome">
-            <img
-              src="https://cdn.discordapp.com/icons/1556343085414355005/57462270960d9e9f7054b230eb8ab6f2.png?size=1024"
-              alt="Timmys Math Work Discord icon"
-              class="timmys-ai-image"
-            />
-            <h1>Timmys Math Work</h1>
+            <img src="https://cdn.discordapp.com/icons/1556343085414355005/57462270960d9e9f7054b230eb8ab6f2.png?size=1024" alt="Timmy AI" class="timmys-ai-image" />
+            <h1>Timmy AI</h1>
           </div>
 
           <div id="conversation" class="conversation"></div>
@@ -1759,7 +1787,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
             Settings
           </h1>
-          <p>Customize Timmys Math Work. Your settings save in this browser.</p>
+          <p>Customize Timmy AI. Your settings save in this browser.</p>
 
           <div id="settings-root"></div>
         </div>
@@ -1995,10 +2023,10 @@
       });
 
       const titles = {
-        "ai-page": ["Timmys Math Work", "Choose a model or API key"],
+        "ai-page": ["Timmy AI", "Your private local AI"],
         "games-page": ["Games", ""],
         "apps-page": ["Apps", ""],
-        "settings-page": ["Settings", "Customize Timmys Math Work"]
+        "settings-page": ["Settings", "Customize Timmy AI"]
       };
 
       const info = titles[pageId];
@@ -2104,11 +2132,9 @@
     }
 
     function showModelLoading(model) {
-      loadingTitle.textContent = `Loading ${model.id}`;
-      loadingMessage.textContent = "Please wait while the model downloads and starts.";
-      loadingProgressBar.style.width = "0%";
-      loadingProgressText.textContent = "0%";
-      loadingModal.classList.add("open");
+      // Silent startup: keep model download/initialization in the background.
+      loadingModal.classList.remove("open");
+      setStatus(`Starting ${model.id} in the background...`);
     }
 
     function updateModelLoading(progress, text) {
@@ -2179,7 +2205,6 @@
       setStatus(`Loading ${model.id} — ${formatVram(model.vram)}...`);
 
       try {
-        await clearWebLLMCache();
         engine = await CreateMLCEngine(model.id, getSafeModelConfig(model));
 
         updateModelLoading(100, "Model is ready.");
@@ -2746,7 +2771,7 @@
     ];
 
     const CLOAK_PRESETS = {
-      none: { label: "None (default)", title: "Timmys Math Work", favicon: "" },
+      none: { label: "None (default)", title: "Timmy AI", favicon: "" },
       google: { label: "Google", title: "Google", favicon: "https://www.google.com/favicon.ico" },
       classroom: { label: "Google Classroom", title: "Classes", favicon: "https://ssl.gstatic.com/classroom/favicon.png" },
       docs: { label: "Google Docs", title: "Untitled document - Google Docs", favicon: "https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" },
@@ -2840,7 +2865,7 @@
 
     function cloakTitleNow() {
       const p = CLOAK_PRESETS[settings.cloakPreset] || CLOAK_PRESETS.none;
-      return (settings.cloakTitle || "").trim() || p.title || "Timmys Math Work";
+      return p.title || "Timmy AI";
     }
 
     function popupBlocked() {
@@ -2957,23 +2982,7 @@
         <div class="tool-card">
           <h2>${icon("palette")} Appearance</h2>
 
-          <div class="setting-row">
-            <div class="setting-label">${icon("type")} Large text
-              <div class="setting-sub">Bigger text across the whole site</div>
-            </div>
-            <div class="setting-control">
-              <label class="switch"><input id="set-largetext" type="checkbox"><span class="track"></span></label>
-            </div>
-          </div>
 
-          <div class="setting-row">
-            <div class="setting-label">${icon("zap")} Reduce motion
-              <div class="setting-sub">Turns off animations and transitions</div>
-            </div>
-            <div class="setting-control">
-              <label class="switch"><input id="set-reduce" type="checkbox"><span class="track"></span></label>
-            </div>
-          </div>
 
           <div class="setting-row">
             <div class="setting-label">${icon("palette")} Color theme</div>
@@ -3043,23 +3052,7 @@
             </div>
           </div>
 
-          <div class="setting-row">
-            <div class="setting-label">${icon("type")} Custom tab title
-              <div class="setting-sub">Leave blank to use the preset</div>
-            </div>
-            <div class="setting-control">
-              <input id="cloak-title" type="text" placeholder="e.g. Math Homework" />
-            </div>
-          </div>
 
-          <div class="setting-row">
-            <div class="setting-label">${icon("check")} Keep disguise on reload
-              <div class="setting-sub">Re-applies the tab disguise every time the page loads</div>
-            </div>
-            <div class="setting-control">
-              <label class="switch"><input id="set-autocloak" type="checkbox"><span class="track"></span></label>
-            </div>
-          </div>
         </div>
 
       `;
@@ -3068,14 +3061,10 @@
     }
 
     function wireSettings() {
-      $("set-largetext").checked = settings.largeText;
-      $("set-reduce").checked = settings.reduceMotion;
       $("set-theme").value = settings.theme;
       $("set-cursor").value = settings.cursor;
       $("panic-key-badge").textContent = prettyKey(settings.panicKey);
       $("cloak-preset").value = settings.cloakPreset;
-      $("cloak-title").value = settings.cloakTitle;
-      $("set-autocloak").checked = settings.autoCloak;
 
       const destSelect = $("panic-dest");
       const customInput = $("panic-custom-url");
@@ -3090,17 +3079,7 @@
         customInput.style.display = "block";
       }
 
-      $("set-largetext").addEventListener("change", (e) => {
-        settings.largeText = e.target.checked;
-        applyLargeText(settings.largeText);
-        saveSettings();
-      });
 
-      $("set-reduce").addEventListener("change", (e) => {
-        settings.reduceMotion = e.target.checked;
-        applyReduceMotion(settings.reduceMotion);
-        saveSettings();
-      });
 
       $("set-theme").addEventListener("change", (e) => {
         settings.theme = e.target.value;
@@ -3165,29 +3144,20 @@
 
       $("cloak-preset").addEventListener("change", (e) => {
         settings.cloakPreset = e.target.value;
-        applyTabCloak(settings.cloakPreset, settings.cloakTitle);
+        applyTabCloak(settings.cloakPreset);
         saveSettings();
       });
 
-      $("cloak-title").addEventListener("input", (e) => {
-        settings.cloakTitle = e.target.value;
-        applyTabCloak(settings.cloakPreset, settings.cloakTitle);
-        saveSettings();
-      });
 
-      $("set-autocloak").addEventListener("change", (e) => {
-        settings.autoCloak = e.target.checked;
-        saveSettings();
-      });
 
     }
 
     function applyAllSettings() {
-      applyLargeText(settings.largeText);
-      applyReduceMotion(settings.reduceMotion);
+      applyLargeText(false);
+      applyReduceMotion(false);
       applyTheme(settings.theme);
       applyCursor(settings.cursor);
-      if (settings.autoCloak) applyTabCloak(settings.cloakPreset, settings.cloakTitle);
+
     }
 
     navButtons.forEach((button) => {
@@ -3670,7 +3640,7 @@
       if (!win) { popupBlocked(); return; }
 
       const preset = CLOAK_PRESETS[settings.cloakPreset] || CLOAK_PRESETS.none;
-      const useCloak = settings.cloakPreset !== "none" || (settings.cloakTitle || "").trim();
+      const useCloak = settings.cloakPreset !== "none";
       const title = useCloak ? cloakTitleNow() : gxCurrent.name;
 
       const doc = win.document;
@@ -3760,7 +3730,27 @@
 
       initializeModels();
       updateControls();
-    }).catch(e => console.warn("Local AI library unavailable", e));
+
+      // Automatically boot the requested TinyLlama 1.1B Chat v1.0 model.
+      const tinyLlama = models.find((model) =>
+        /TinyLlama-1\.1B-Chat-v1\.0-q4f16_1-MLC(?:-1k)?$/i.test(model.id)
+      ) || models.find((model) =>
+        /tinyllama.*1\.1b.*v1\.0.*q4f16_1/i.test(model.id)
+      );
+
+      if (tinyLlama) {
+        aiChoice.value = tinyLlama.id;
+        activeProvider = "local";
+        selectedModel = tinyLlama;
+        setStatus("Starting TinyLlama 1.1B in the background...");
+        loadLocalModel(tinyLlama);
+      } else {
+        setStatus("TinyLlama 1.1B v1.0 is not in the available WebLLM model list.", "error");
+      }
+    }).catch(e => {
+      console.warn("Local AI library unavailable", e);
+      setStatus("Local AI could not start. Check your connection and WebGPU support.", "error");
+    });
       /* ================= Movies & Music (same sources as achroma) ================= */
     // How they do it: open metadata API (/api/movies, /api/music/ytm) + TMDB images
     // + third-party embed players (VidZee, vidsrc.su, CineSrc) for movies,
@@ -4161,47 +4151,23 @@
         const modal = mv.modal;
         modal.innerHTML = "";
 
-        const inner = makeEl("div", "mv-modal-inner");
-        const heroEl = makeEl("div", "mv-modal-hero");
-        const heroImg = document.createElement("img");
-        heroImg.alt = "";
-        heroImg.src = backdropUrl(data.backdrop || data.poster);
-        const closeBtn = makeEl("button", "mv-modal-close");
+        const inner = makeEl("div", "mv-modal-inner mv-player-focused");
+        const playerHead = makeEl("div", "mv-player-head");
+        const closeBtn = makeEl("button", "mv-modal-close mv-player-close", "Close");
         closeBtn.type = "button";
-        closeBtn.setAttribute("aria-label", "Close");
-        closeBtn.innerHTML =
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+        closeBtn.setAttribute("aria-label", "Close player");
+        closeBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span>Close</span>';
         closeBtn.addEventListener("click", () => {
+          if (mv.frame) mv.frame.src = "about:blank";
           modal.hidden = true;
           modal.innerHTML = "";
         });
-        heroEl.append(heroImg, closeBtn);
-        inner.appendChild(heroEl);
+        playerHead.appendChild(makeEl("span", "mv-player-kicker", "NOW PLAYING"));
+        playerHead.appendChild(closeBtn);
+        inner.appendChild(playerHead);
 
-        const bodyEl = makeEl("div", "mv-modal-body");
-        bodyEl.appendChild(makeEl("h2", null, data.title || "Unknown"));
-        const meta = makeEl("div", "mv-meta");
-        if (data.year) meta.appendChild(makeEl("span", null, data.year));
-        if (data.rating) meta.appendChild(makeEl("span", "mv-star", "\u2605 " + data.rating));
-        if (data.runtime) meta.appendChild(makeEl("span", null, data.runtime + " min"));
-        (data.genres || []).slice(0, 5).forEach((g) => meta.appendChild(makeEl("span", null, g)));
-        bodyEl.appendChild(meta);
-        if (data.tagline) bodyEl.appendChild(makeEl("div", "mv-note", data.tagline));
-        bodyEl.appendChild(makeEl("p", "mv-overview", data.overview || ""));
-
-        if (data.trailer) {
-          const trailerBtn = makeEl("button", "mv-srcbtn", "\u25b6 Trailer");
-          trailerBtn.type = "button";
-          trailerBtn.addEventListener("click", () => {
-            const frame = modal.querySelector(".mv-frame-wrap iframe");
-            if (frame) frame.src = "https://www.youtube-nocookie.com/embed/" + data.trailer + "?autoplay=1";
-            modal.querySelector(".mv-modal-body").scrollIntoView({ behavior: "smooth" });
-          });
-          bodyEl.appendChild(trailerBtn);
-        }
-
-        const srcRow = makeEl("div", "mv-srcrow");
-        srcRow.appendChild(makeEl("span", "mv-note", "Source:"));
+        const srcRow = makeEl("div", "mv-srcrow mv-player-sources");
+        srcRow.appendChild(makeEl("span", "mv-note", "Source"));
         MV_SOURCES.forEach((src) => {
           const btn = makeEl("button", "mv-srcbtn" + (src.id === mv.modalSource ? " active" : ""), src.name);
           btn.type = "button";
@@ -4212,38 +4178,48 @@
           });
           srcRow.appendChild(btn);
         });
-        bodyEl.appendChild(srcRow);
+        inner.appendChild(srcRow);
 
-        const frameWrap = makeEl("div", "mv-frame-wrap");
+        const frameWrap = makeEl("div", "mv-frame-wrap mv-player-frame-wrap");
         const frame = document.createElement("iframe");
         frame.allow = "fullscreen; autoplay; encrypted-media; picture-in-picture";
-        frame.title = "Player";
+        frame.allowFullscreen = true;
+        frame.title = "Movie or TV player";
         frameWrap.appendChild(frame);
-        bodyEl.appendChild(frameWrap);
+        inner.appendChild(frameWrap);
         mv.frame = frame;
 
+        const playerActions = makeEl("div", "mv-player-actions");
+        const fullBtn = makeEl("button", "mv-srcbtn", "Fullscreen");
+        fullBtn.type = "button";
+        fullBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg> Fullscreen';
+        fullBtn.addEventListener("click", () => {
+          if (frame.requestFullscreen) frame.requestFullscreen().catch(() => {});
+        });
+        playerActions.appendChild(fullBtn);
+        inner.appendChild(playerActions);
+
         if (data.media === "tv" && data.seasons && data.seasons.length) {
-          const seasonRow = makeEl("div", "mv-srcrow");
-          seasonRow.appendChild(makeEl("span", "mv-note", "Season:"));
-          data.seasons.forEach((s) => {
-            const btn = makeEl("button", "mv-srcbtn" + (s.number === mv.modalSeason ? " active" : ""), s.name || ("Season " + s.number));
+          const seasonRow = makeEl("div", "mv-srcrow mv-player-season");
+          seasonRow.appendChild(makeEl("span", "mv-note", "Season"));
+          data.seasons.forEach((season) => {
+            const btn = makeEl("button", "mv-srcbtn" + (season.number === mv.modalSeason ? " active" : ""), season.name || ("Season " + season.number));
             btn.type = "button";
             btn.addEventListener("click", () => {
-              mv.modalSeason = s.number;
+              mv.modalSeason = season.number;
               mv.modalEpisode = 1;
               mvRenderModal();
             });
             seasonRow.appendChild(btn);
           });
-          bodyEl.appendChild(seasonRow);
-          bodyEl.appendChild(makeEl("h3", null, "Episodes"));
+          inner.appendChild(seasonRow);
+          inner.appendChild(makeEl("h3", "mv-player-episodes-title", "Episodes"));
           const eps = makeEl("div", "mv-eps");
           eps.appendChild(makeEl("div", "mv-note", "Loading episodes..."));
-          bodyEl.appendChild(eps);
+          inner.appendChild(eps);
           mvRenderEpisodes(eps);
         }
 
-        inner.appendChild(bodyEl);
         modal.appendChild(inner);
         mvPlayCurrent();
       }
@@ -4419,7 +4395,34 @@
         bar.hidden = true;
 
         const dock = makeEl("div", "mu-dock");
-        dock.append(videoPanel, bar);
+        dock.hidden = true;
+        const playerHeader = makeEl("div", "mu-now-header");
+        const backToMusic = makeEl("button", "mu-now-back", "⌄ Back to music");
+        backToMusic.type = "button";
+        const nowLabel = makeEl("span", "mu-now-label", "NOW PLAYING");
+        playerHeader.append(backToMusic, nowLabel);
+        backToMusic.onclick = () => {
+          dock.hidden = true;
+          toolbar.hidden = false;
+          body.hidden = false;
+          reopen.hidden = false;
+        };
+        const reopen = makeEl("button", "mu-tab", "Now playing");
+        reopen.type = "button";
+        reopen.hidden = true;
+        reopen.onclick = () => {
+          dock.hidden = false;
+          toolbar.hidden = true;
+          body.hidden = true;
+        };
+        toolbar.appendChild(reopen);
+        mu.openNowPlaying = () => {
+          dock.hidden = false;
+          toolbar.hidden = true;
+          body.hidden = true;
+          reopen.hidden = false;
+        };
+        dock.append(playerHeader, bar, videoPanel);
         shell.appendChild(dock);
 
         const art = makeEl("div", "mu-bar-art");
@@ -4429,8 +4432,8 @@
         art.appendChild(artImg);
 
         const info = makeEl("div", "mu-bar-info");
-        const barTitle = makeEl("div", "mu-bar-title", "Nothing playing");
-        const barArtist = makeEl("div", "mu-bar-artist", "Pick a song to start");
+        const barTitle = makeEl("div", "mu-bar-title", "");
+        const barArtist = makeEl("div", "mu-bar-artist", "");
         info.append(barTitle, barArtist);
 
         const controls = makeEl("div", "mu-bar-controls");
@@ -4451,6 +4454,7 @@
         const seekWrap = makeEl("div", "mu-seekwrap");
         const curTime = makeEl("span", "mu-time", "0:00");
         const seek = document.createElement("input");
+        seek.setAttribute("aria-label", "Song progress");
         seek.type = "range";
         seek.className = "mu-seek";
         seek.min = "0";
@@ -4461,6 +4465,7 @@
 
         const volWrap = makeEl("div", "mu-seekwrap");
         const vol = document.createElement("input");
+        vol.setAttribute("aria-label", "Volume");
         vol.type = "range";
         vol.className = "mu-vol";
         vol.min = "0";
@@ -4787,6 +4792,7 @@
         const track = mu.queue[mu.index];
         if (!track) return;
         mu.bar.hidden = false;
+        if (mu.openNowPlaying) mu.openNowPlaying();
         mu.barTitle.textContent = track.title || "Unknown";
         mu.barArtist.textContent = track.artist || "";
         mu.artImg.hidden = false;
@@ -4937,6 +4943,7 @@
   <script>
     (() => {
       const apps = [
+{"name": "Discord", "url": "https://e.widgetbot.io/channels/1556343085414355005/1556343086442086496", "icon": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23000%22%20d%3D%22M19.54%204.42A16.3%2016.3%200%200%200%2015.4%203.13l-.5%201.02a15.1%2015.1%200%200%200-5.8%200l-.5-1.02a16.3%2016.3%200%200%200-4.14%201.29C1.84%207.5%201.13%2010.5%201.49%2013.46a16.7%2016.7%200%200%200%205.08%202.57l1.23-1.67c-.68-.25-1.33-.55-1.94-.9l.47-.36c3.74%201.74%207.8%201.74%2011.5%200l.48.36c-.62.35-1.27.65-1.95.9l1.23%201.67a16.7%2016.7%200%200%200%205.08-2.57c.42-3.43-.72-6.4-3.13-9.04ZM8.52%2012.48c-1.1%200-2-.99-2-2.2s.88-2.2%202-2.2%202%20.99%202%202.2-.9%202.2-2%202.2Zm6.96%200c-1.1%200-2-.99-2-2.2s.88-2.2%202-2.2%202%20.99%202%202.2-.9%202.2-2%202.2Z%22%20/%3E%0A%20%20%20%20%20%20%20%20%3C/svg%3E", "directEmbed": true},
         {
           name: "Base64 Encoder / Decoder",
           url: "data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CiAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+CiAgPHRpdGxlPkJhc2U2NCBFbmNvZGVyIC8gRGVjb2RlcjwvdGl0bGU+CiAgPHN0eWxlPgogICAgKiB7IGJveC1zaXppbmc6IGJvcmRlci1ib3g7IH0KICAgIGJvZHkgewogICAgICBtYXJnaW46IDA7CiAgICAgIHBhZGRpbmc6IDI0cHg7CiAgICAgIGZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgYmFja2dyb3VuZDogI2Y0ZjRmNDsKICAgICAgY29sb3I6ICMxMTE7CiAgICB9CiAgICBtYWluIHsgbWF4LXdpZHRoOiA5MDBweDsgbWFyZ2luOiAwIGF1dG87IH0KICAgIGgxIHsgZm9udC1zaXplOiAyNHB4OyBtYXJnaW46IDAgMCAxOHB4OyB9CiAgICBsYWJlbCB7IGRpc3BsYXk6IGJsb2NrOyBmb250LXdlaWdodDogNjAwOyBtYXJnaW46IDE0cHggMCA3cHg7IH0KICAgIHRleHRhcmVhIHsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIG1pbi1oZWlnaHQ6IDE5MHB4OwogICAgICBwYWRkaW5nOiAxMnB4OwogICAgICBib3JkZXI6IDFweCBzb2xpZCAjYmJiOwogICAgICBib3JkZXItcmFkaXVzOiA1cHg7CiAgICAgIGZvbnQ6IDE0cHgvMS41IG1vbm9zcGFjZTsKICAgICAgcmVzaXplOiB2ZXJ0aWNhbDsKICAgICAgYmFja2dyb3VuZDogd2hpdGU7CiAgICB9CiAgICAuYnV0dG9ucyB7IGRpc3BsYXk6IGZsZXg7IGZsZXgtd3JhcDogd3JhcDsgZ2FwOiA4cHg7IG1hcmdpbjogMTJweCAwOyB9CiAgICBidXR0b24gewogICAgICBib3JkZXI6IDFweCBzb2xpZCAjOTk5OwogICAgICBib3JkZXItcmFkaXVzOiA1cHg7CiAgICAgIHBhZGRpbmc6IDEwcHggMTRweDsKICAgICAgYmFja2dyb3VuZDogI2ZmZjsKICAgICAgY29sb3I6ICMxMTE7CiAgICAgIGN1cnNvcjogcG9pbnRlcjsKICAgICAgZm9udC1zaXplOiAxNHB4OwogICAgfQogICAgYnV0dG9uOmhvdmVyIHsgYmFja2dyb3VuZDogI2U5ZTllOTsgfQogICAgI3N0YXR1cyB7IG1pbi1oZWlnaHQ6IDIwcHg7IGZvbnQtc2l6ZTogMTRweDsgbWFyZ2luLXRvcDogOHB4OyB9CiAgICBAbWVkaWEgKG1heC13aWR0aDogNjAwcHgpIHsgYm9keSB7IHBhZGRpbmc6IDE0cHg7IH0gdGV4dGFyZWEgeyBtaW4taGVpZ2h0OiAxNjBweDsgfSB9CiAgPC9zdHlsZT4KPC9oZWFkPgo8Ym9keT4KICA8bWFpbj4KICAgIDxoMT5CYXNlNjQgRW5jb2RlciAvIERlY29kZXI8L2gxPgoKICAgIDxsYWJlbCBmb3I9ImlucHV0Ij5JbnB1dDwvbGFiZWw+CiAgICA8dGV4dGFyZWEgaWQ9ImlucHV0IiBwbGFjZWhvbGRlcj0iUGFzdGUgdGV4dCBvciBCYXNlNjQgaGVyZS4uLiI+PC90ZXh0YXJlYT4KCiAgICA8ZGl2IGNsYXNzPSJidXR0b25zIj4KICAgICAgPGJ1dHRvbiBpZD0iZW5jb2RlIiB0eXBlPSJidXR0b24iPkVuY29kZSB0byBCYXNlNjQg4oaTPC9idXR0b24+CiAgICAgIDxidXR0b24gaWQ9ImRlY29kZSIgdHlwZT0iYnV0dG9uIj5EZWNvZGUgZnJvbSBCYXNlNjQg4oaTPC9idXR0b24+CiAgICAgIDxidXR0b24gaWQ9InN3YXAiIHR5cGU9ImJ1dHRvbiI+VXNlIG91dHB1dCBhcyBpbnB1dDwvYnV0dG9uPgogICAgICA8YnV0dG9uIGlkPSJjb3B5IiB0eXBlPSJidXR0b24iPkNvcHkgb3V0cHV0PC9idXR0b24+CiAgICAgIDxidXR0b24gaWQ9ImNsZWFyIiB0eXBlPSJidXR0b24iPkNsZWFyPC9idXR0b24+CiAgICA8L2Rpdj4KCiAgICA8bGFiZWwgZm9yPSJvdXRwdXQiPk91dHB1dDwvbGFiZWw+CiAgICA8dGV4dGFyZWEgaWQ9Im91dHB1dCIgcGxhY2Vob2xkZXI9IlJlc3VsdCBhcHBlYXJzIGhlcmUuLi4iIHJlYWRvbmx5PjwvdGV4dGFyZWE+CiAgICA8ZGl2IGlkPSJzdGF0dXMiIHJvbGU9InN0YXR1cyIgYXJpYS1saXZlPSJwb2xpdGUiPjwvZGl2PgogIDwvbWFpbj4KCiAgPHNjcmlwdD4KICAgIGNvbnN0IGlucHV0ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2lucHV0Jyk7CiAgICBjb25zdCBvdXRwdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnb3V0cHV0Jyk7CiAgICBjb25zdCBzdGF0dXMgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3RhdHVzJyk7CgogICAgLy8gVVRGLTgtc2FmZSBCYXNlNjQgZW5jb2RpbmcsIGluY2x1ZGluZyBlbW9qaSBhbmQgbm9uLUVuZ2xpc2ggdGV4dC4KICAgIGZ1bmN0aW9uIGVuY29kZUJhc2U2NCh0ZXh0KSB7CiAgICAgIGNvbnN0IGJ5dGVzID0gbmV3IFRleHRFbmNvZGVyKCkuZW5jb2RlKHRleHQpOwogICAgICBsZXQgYmluYXJ5ID0gJyc7CiAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgYnl0ZXMubGVuZ3RoOyBpICs9IDB4ODAw0KUgZXJyb3IpIHsKICAgICAgICBvdXRwdXQudmFsdWUgPSAnJzsKICAgICAgICBzdGF0dXMudGV4dENvbnRlbnQgPSAnSW52YWxpZCBCYXNlNjQgb3IgdGhlIGRlY29kZWQgZGF0YSBpcyBub3QgdmFsaWQgVVRGLTggdGV4dC4nOgogICAgICB9CiAgICB9KTsKCiAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3dhcCcpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICBpbnB1dC52YWx1ZSA9IG91dHB1dC52YWx1ZTsKICAgICAgb3V0cHV0LnZhbHVlID0gJyc7CiAgICAgIHN0YXR1cy50ZXh0Q29udGVudCA9ICdPdXRwdXQgbW92ZWQgdG8gaW5wdXQuJzsKICAgICAgaW5wdXQuZm9jdXMoKTsKICAgIH0pOwoKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdjb3B5JykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBhc3luYyAoKSA9PiB7CiAgICAgIGlmICghb3V0cHV0LnZhbHVlKSB7CiAgICAgICAgc3RhdHVzLnRleHRDb250ZW50ID0gJ1RoZXJlIGlzIG5vIG91dHB1dCB0byBjb3B5Lic7CiAgICAgICAgcmV0dXJuOwogICAgICB9CiAgICAgIHRyeSB7CiAgICAgICAgYXdhaXQgbmF2aWdhdG9yLmNsaXBib2FyZC53cml0ZVRleHQob3V0cHV0LnZhbHVlKTsKICAgICAgICBzdGF0dXMudGV4dENvbnRlbnQgPSAnT3V0cHV0IGNvcGllZC4nOgogICAgICB9IGNhdGNoIChlcnJvcikgewogICAgICAgIG91dHB1dC5mb2N1cygpOwogICAgICAgIHRyeSB7CiAgICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgnY29weScpOwogICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgICBzdGF0dXMudGV4dENvbnRlbnQgPSAnQ29weSBmYWlsZWQuJzsKICAgICAgICB9CiAgICAgICAgb3V0cHV0LmZvY3VzKCk7CiAgICAgIH0KICAgIH0pOwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2NsZWFyJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICAgIChmdW5jdGlvbigpIHsKICAgICAgICBvdXRwdXQudmFsdWUgPSAnJzsKICAgICAgICBzdGF0dXMudGV4dENvbnRlbnQgPSAnQ2xlYXJlZC4nOwogICAgICB9KTsKICAgIH0pOwogICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignZHJhZ292ZXInLCBlID0+IHsgZS5wcmV2ZW50RGVmYXVsdCgpOyB9KTsKICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2Ryb3AnLCBlID0+IHsKICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICBjb25zdCBmaWxlID0gZS5kYXRhVHJhbnNmZXIgJiYgZS5kYXRhVHJhbnNmZXIuZmlsZXNbMF07CiAgICAgIGlmIChmaWxlICYmICgvXC5odG1sPyQvaS50ZXN0KGZpbGUubmFtZSkgfHwgZmlsZS50eXBlID09PSAndGV4dC9odG1sJykpIHsKICAgICAgICBjb25zdCB0cmFuc2ZlciA9IG5ldyBEYXRhVHJhbnNmZXIoKTsKICAgICAgICB0cmFuc2Zlci5pdGVtcy5hZGQoZmlsZSk7CiAgICAgICAgaW5wdXQuZmlsZXMgPSB0cmFuc2Zlci5maWxlczsKICAgICAgICBpbnB1dC5kaXNwYXRjaEV2ZW50KG5ldyBFdmVudCgnY2hhbmdlJykpOwogICAgICB9CiAgICB9KTsKICA8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+Cg==",
@@ -5030,7 +5037,12 @@
 
         frame.removeAttribute("srcdoc");
         frame.src = "about:blank";
-
+        if (apps[i].directEmbed) {
+          frame.title = apps[i].name;
+          frame.src = apps[i].url;
+          $("status").textContent = "";
+          return;
+        }
         try {
           let text;
           if (typeof apps[i].htmlBase64 === "string") {
@@ -5082,7 +5094,7 @@
       };
 
       $("newtab").onclick = () => {
-        if (!source) {
+        if (!source && !apps[current].directEmbed) {
           $("status").textContent = "Wait for the app to load.";
           return;
         }
@@ -5099,7 +5111,8 @@
         const frameEl = win.document.createElement("iframe");
         frameEl.style.cssText = "position:fixed;inset:0;width:100%;height:100%;border:0";
         frameEl.allow = "fullscreen; autoplay; gamepad; clipboard-read; clipboard-write";
-        frameEl.srcdoc = source;
+        if (apps[current].directEmbed) frameEl.src = apps[current].url;
+        else frameEl.srcdoc = source;
         win.document.body.append(frameEl);
       };
 
