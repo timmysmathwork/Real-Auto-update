@@ -26,7 +26,7 @@
     (() => {
       "use strict";
 
-      const BASE = "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/";
+      const BASE = "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html/";
       const FILE_URL = BASE + "updated-site.html";
       const CHECK_INTERVAL = 60000;
       const TIMEOUT = 20000;
