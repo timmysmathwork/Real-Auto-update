@@ -18,7 +18,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Timmy AI</title>
+  <title>Timmys Math Work</title>
   <link id="dynamic-favicon" rel="icon" href="data:," />
   <style>
     :root {
@@ -940,6 +940,35 @@
     .gx-empty[hidden], .gx-player[hidden] { display: none; }
     .gx-more { height: 1px; }
 
+
+    .gx-game-layout { display:grid; grid-template-columns:minmax(0,1fr) 230px; gap:12px; align-items:stretch; }
+    .gx-game-main { min-width:0; }
+    .gx-hacks-panel { border:2px solid var(--border); border-radius:10px; background:var(--panel); padding:12px; min-width:0; }
+    .gx-hacks-panel h3 { margin:0 0 5px; font-size:15px; }
+    .gx-hacks-note { color:var(--muted); font-size:11px; margin:0 0 10px; line-height:1.4; }
+    .gx-hack-item { display:flex; align-items:center; gap:7px; padding:8px 0; border-top:1px solid var(--border); }
+    .gx-hack-info { min-width:0; flex:1; }
+    .gx-hack-name { font-size:12px; font-weight:700; overflow-wrap:anywhere; }
+    .gx-hack-key { color:var(--muted); font-size:10px; margin-top:2px; }
+    .gx-hack-run { border:1px solid var(--border); border-radius:7px; background:var(--panel-2); color:var(--text); padding:6px 8px; cursor:pointer; font-size:11px; }
+    .gx-hack-run:hover { border-color:var(--green); }
+    .gx-hacks-empty { color:var(--muted); font-size:12px; padding:8px 0; }
+    .bookmark-hack-editor { display:grid; gap:9px; }
+    .bookmark-hack-editor input, .bookmark-hack-editor textarea { box-sizing:border-box; width:100%; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--text); padding:9px; font:inherit; }
+    .bookmark-hack-editor textarea { min-height:105px; resize:vertical; font-family:ui-monospace,monospace; font-size:12px; }
+    .bookmark-hack-list { display:grid; gap:8px; margin-top:12px; }
+    .bookmark-hack-setting { display:flex; align-items:center; gap:9px; padding:9px; border:1px solid var(--border); border-radius:8px; }
+    .bookmark-hack-setting .hack-setting-info { flex:1; min-width:0; }
+    .bookmark-hack-setting strong { display:block; overflow-wrap:anywhere; }
+    .bookmark-hack-setting small { color:var(--muted); }
+    .bookmark-hack-setting button { border:1px solid var(--border); border-radius:7px; background:var(--panel-2); color:var(--text); padding:6px 8px; cursor:pointer; }
+    @media (max-width:760px) {
+      .gx-game-layout { grid-template-columns:1fr; }
+      .gx-hacks-panel { order:2; }
+      .gx-hacks-panel .gx-hack-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:6px; }
+      .gx-hack-item { border:1px solid var(--border); border-radius:8px; padding:7px; }
+    }
+
     .gx-player-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 8px; }
     .gx-player-head strong { font-size: 16px; }
     .gx-spacer { flex: 1; }
@@ -1593,10 +1622,6 @@
 #music-page .mu-video{width:min(100%,440px);max-width:440px}
 @media(max-width:600px){#music-page .mu-dock{padding:18px 18px 28px;min-height:0;border-radius:14px}#music-page .mu-now-label{font-size:10px;letter-spacing:1px}}
 </style>
-
-
-
-
 </head>
 <body>
   <div class="app">
@@ -1604,7 +1629,7 @@
       <div class="sidebar-header">
         <div class="brand">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-          Timmy AI
+          Timmys Math Work
         </div>
 
         <button id="close-sidebar" class="mobile-menu" type="button" aria-label="Close menu">
@@ -1677,7 +1702,7 @@
         </button>
 
         <div>
-          <div id="topbar-title" class="topbar-title">Timmy AI</div>
+          <div id="topbar-title" class="topbar-title">Timmys Math Work</div>
           <div id="topbar-subtitle" class="topbar-subtitle">Choose a model or API key</div>
         </div>
       </header>
@@ -1685,8 +1710,12 @@
       <section id="ai-page" class="page active">
         <div class="ai-page">
           <div id="welcome" class="welcome">
-            <img src="https://cdn.discordapp.com/icons/1556343085414355005/57462270960d9e9f7054b230eb8ab6f2.png?size=1024" alt="Timmy AI" class="timmys-ai-image" />
-            <h1>Timmy AI</h1>
+            <img
+              src="https://cdn.discordapp.com/icons/1556343085414355005/57462270960d9e9f7054b230eb8ab6f2.png?size=1024"
+              alt="Timmys Math Work Discord icon"
+              class="timmys-ai-image"
+            />
+            <h1>Timmys Math Work</h1>
           </div>
 
           <div id="conversation" class="conversation"></div>
@@ -1787,7 +1816,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
             Settings
           </h1>
-          <p>Customize Timmy AI. Your settings save in this browser.</p>
+          <p>Customize Timmys Math Work. Your settings save in this browser.</p>
 
           <div id="settings-root"></div>
         </div>
@@ -2023,10 +2052,10 @@
       });
 
       const titles = {
-        "ai-page": ["Timmy AI", "Your private local AI"],
+        "ai-page": ["Timmys Math Work", "Choose a model or API key"],
         "games-page": ["Games", ""],
         "apps-page": ["Apps", ""],
-        "settings-page": ["Settings", "Customize Timmy AI"]
+        "settings-page": ["Settings", "Customize Timmys Math Work"]
       };
 
       const info = titles[pageId];
@@ -2132,9 +2161,11 @@
     }
 
     function showModelLoading(model) {
-      // Silent startup: keep model download/initialization in the background.
-      loadingModal.classList.remove("open");
-      setStatus(`Starting ${model.id} in the background...`);
+      loadingTitle.textContent = `Loading ${model.id}`;
+      loadingMessage.textContent = "Please wait while the model downloads and starts.";
+      loadingProgressBar.style.width = "0%";
+      loadingProgressText.textContent = "0%";
+      loadingModal.classList.add("open");
     }
 
     function updateModelLoading(progress, text) {
@@ -2205,6 +2236,7 @@
       setStatus(`Loading ${model.id} — ${formatVram(model.vram)}...`);
 
       try {
+        await clearWebLLMCache();
         engine = await CreateMLCEngine(model.id, getSafeModelConfig(model));
 
         updateModelLoading(100, "Model is ready.");
@@ -2649,7 +2681,10 @@
       panicUrl: "https://classroom.google.com/h",
       cloakPreset: "none",
       cloakTitle: "",
-      autoCloak: false
+      autoCloak: false,
+      autoClickerKey: "",
+      autoClickerCps: 100,
+      bookmarkHacks: []
     };
 
     let settings = { ...DEFAULT_SETTINGS };
@@ -2771,7 +2806,7 @@
     ];
 
     const CLOAK_PRESETS = {
-      none: { label: "None (default)", title: "Timmy AI", favicon: "" },
+      none: { label: "None (default)", title: "Timmys Math Work", favicon: "" },
       google: { label: "Google", title: "Google", favicon: "https://www.google.com/favicon.ico" },
       classroom: { label: "Google Classroom", title: "Classes", favicon: "https://ssl.gstatic.com/classroom/favicon.png" },
       docs: { label: "Google Docs", title: "Untitled document - Google Docs", favicon: "https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" },
@@ -2865,7 +2900,7 @@
 
     function cloakTitleNow() {
       const p = CLOAK_PRESETS[settings.cloakPreset] || CLOAK_PRESETS.none;
-      return p.title || "Timmy AI";
+      return p.title || "Timmys Math Work";
     }
 
     function popupBlocked() {
@@ -2950,14 +2985,248 @@
       return key;
     }
 
+    let autoClickerRunning = false;
+    let autoClickerTimer = null;
+    const autoClickerWatchedDocuments = new WeakSet();
+
+    function autoClickerInterval() {
+      return Math.max(0.1, Math.min(60000, Number(settings.autoClickerCps) || 100));
+    }
+
+    // Track the pointer inside same-origin game frames, converting coordinates
+    // back to the top-level page so the clicker follows the actual game pointer.
+    function watchAutoClickerDocument(doc, toTop = (x, y) => ({ x, y })) {
+      if (!doc || autoClickerWatchedDocuments.has(doc)) return;
+      autoClickerWatchedDocuments.add(doc);
+      doc.addEventListener("pointermove", (e) => {
+        const point = toTop(e.clientX, e.clientY);
+        window.__tmwLastPointerX = point.x;
+        window.__tmwLastPointerY = point.y;
+      }, { passive: true });
+
+      doc.querySelectorAll("iframe, frame").forEach((frame) => {
+        const attach = () => {
+          try {
+            const childDoc = frame.contentDocument;
+            if (!childDoc) return;
+            const rect = frame.getBoundingClientRect();
+            const sx = frame.clientWidth ? rect.width / frame.clientWidth : 1;
+            const sy = frame.clientHeight ? rect.height / frame.clientHeight : 1;
+            watchAutoClickerDocument(childDoc, (x, y) =>
+              toTop(rect.left + x * sx, rect.top + y * sy));
+          } catch (_) { /* Cross-origin frames are inaccessible by browser design. */ }
+        };
+        frame.addEventListener("load", attach);
+        attach();
+      });
+    }
+
+    function findAutoClickTarget(doc, x, y) {
+      let currentDoc = doc, localX = x, localY = y;
+      for (let depth = 0; depth < 8; depth++) {
+        let target;
+        try { target = currentDoc.elementFromPoint(localX, localY); }
+        catch (_) { return null; }
+        if (!target) return null;
+
+        if (target.tagName === "IFRAME" || target.tagName === "FRAME") {
+          try {
+            const childDoc = target.contentDocument;
+            if (!childDoc) return { target, x: localX, y: localY };
+            const rect = target.getBoundingClientRect();
+            const sx = target.clientWidth ? target.clientWidth / rect.width : 1;
+            const sy = target.clientHeight ? target.clientHeight / rect.height : 1;
+            localX = (localX - rect.left) * sx;
+            localY = (localY - rect.top) * sy;
+            currentDoc = childDoc;
+            continue;
+          } catch (_) { return { target, x: localX, y: localY }; }
+        }
+        return { target, x: localX, y: localY };
+      }
+      return null;
+    }
+
+    function stopAutoClicker() {
+      autoClickerRunning = false;
+      if (autoClickerTimer !== null) {
+        clearTimeout(autoClickerTimer);
+        autoClickerTimer = null;
+      }
+      const status = $("autoclicker-status");
+      if (status) status.textContent = "Stopped";
+    }
+
+    function fireAutoClick() {
+      if (!autoClickerRunning) return;
+      const x = Math.max(0, Math.min(window.innerWidth - 1,
+        window.__tmwLastPointerX ?? Math.floor(window.innerWidth / 2)));
+      const y = Math.max(0, Math.min(window.innerHeight - 1,
+        window.__tmwLastPointerY ?? Math.floor(window.innerHeight / 2)));
+
+      const resolved = findAutoClickTarget(document, x, y);
+      if (resolved) {
+        const { target, x: localX, y: localY } = resolved;
+        const common = {
+          bubbles: true, cancelable: true, composed: true,
+          view: target.ownerDocument.defaultView,
+          clientX: localX, clientY: localY, button: 0, buttons: 1, detail: 1
+        };
+        // Hit-test into the game iframe and dispatch on the real canvas/element,
+        // not on the outer iframe. This fixes the hub's embedded CDN games.
+        try {
+          target.dispatchEvent(new PointerEvent("pointermove", {
+            ...common, pointerId: 1, pointerType: "mouse", isPrimary: true,
+            width: 1, height: 1, pressure: 0
+          }));
+          target.dispatchEvent(new PointerEvent("pointerdown", {
+            ...common, pointerId: 1, pointerType: "mouse", isPrimary: true,
+            width: 1, height: 1, pressure: 0.5
+          }));
+        } catch (_) {}
+        target.dispatchEvent(new MouseEvent("mousemove", common));
+        target.dispatchEvent(new MouseEvent("mousedown", common));
+        try {
+          target.dispatchEvent(new PointerEvent("pointerup", {
+            ...common, buttons: 0, pointerId: 1, pointerType: "mouse",
+            isPrimary: true, width: 1, height: 1, pressure: 0
+          }));
+        } catch (_) {}
+        target.dispatchEvent(new MouseEvent("mouseup", { ...common, buttons: 0 }));
+        target.dispatchEvent(new MouseEvent("click", { ...common, buttons: 0 }));
+      }
+      autoClickerTimer = setTimeout(fireAutoClick, autoClickerInterval());
+    }
+
+    function startAutoClicker() {
+      if (autoClickerRunning) return;
+      autoClickerRunning = true;
+      watchAutoClickerDocument(document);
+      const status = $("autoclicker-status");
+      if (status) status.textContent =
+        `Running every ${autoClickerInterval()} ms · move your pointer over the game`;
+      fireAutoClick();
+    }
+
+    window.addEventListener("pointermove", (e) => {
+      window.__tmwLastPointerX = e.clientX;
+      window.__tmwLastPointerY = e.clientY;
+    }, { passive: true });
+
     window.addEventListener("keydown", (e) => {
-      if (recordingKey) return;
-      if (!settings.panicKey) return;
-      if (e.key === settings.panicKey) {
+      if (recordingKey || recordingHackKey) return;
+      if (gxCurrent) {
+        const matchedHack = (settings.bookmarkHacks || []).find(h => h.enabled !== false && bookmarkHackKeyMatches(h, e));
+        if (matchedHack) {
+          e.preventDefault();
+          e.stopPropagation();
+          runBookmarkHack(matchedHack);
+          return;
+        }
+      }
+      if (settings.panicKey && e.key === settings.panicKey) {
         e.preventDefault();
         triggerPanic();
+        return;
+      }
+      if (settings.autoClickerKey && e.key.toLowerCase() === settings.autoClickerKey.toLowerCase() && !e.repeat) {
+        e.preventDefault();
+        if (autoClickerRunning) stopAutoClicker();
+        else startAutoClicker();
       }
     }, true);
+
+    window.addEventListener("blur", stopAutoClicker);
+
+
+    let recordingHackKey = false;
+
+    function bookmarkHackKeyMatches(hack, event) {
+      if (!hack || !hack.key) return false;
+      return String(hack.key).toLowerCase() === String(event.key).toLowerCase();
+    }
+
+    function runBookmarkHack(hack) {
+      if (!gxCurrent || !gxFrame || !gxFrame.contentWindow) return;
+      const code = String(hack.code || "").replace(/^\s*javascript:/i, "").trim();
+      if (!code) return;
+      try {
+        const gameWindow = gxFrame.contentWindow;
+        gameWindow.focus();
+        // Execute in the active game's document context, like activating a bookmarklet
+        // while that game tab is focused.
+        gameWindow.eval(code);
+        gxStatus.textContent = `Ran hack: ${hack.name}`;
+        setTimeout(() => { if (gxCurrent) gxStatus.textContent = ""; }, 1800);
+      } catch (err) {
+        gxStatus.textContent = `Hack failed: ${err.message || err}`;
+      }
+    }
+
+    function renderGameHacks() {
+      const list = $("gx-hack-list");
+      if (!list) return;
+      const hacks = (settings.bookmarkHacks || []).filter(h => h.enabled !== false);
+      if (!hacks.length) {
+        list.innerHTML = '<div class="gx-hacks-empty">No enabled hacks. Add some in Settings.</div>';
+        return;
+      }
+      list.innerHTML = hacks.map(h => `
+        <div class="gx-hack-item">
+          <div class="gx-hack-info">
+            <div class="gx-hack-name">${escapeHtml(h.name || "Unnamed hack")}</div>
+            <div class="gx-hack-key">${escapeHtml(prettyKey(h.key || ""))}</div>
+          </div>
+          <button class="gx-hack-run" type="button" data-run-hack="${escapeHtml(h.id)}">Run</button>
+        </div>`).join("");
+      list.querySelectorAll("[data-run-hack]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const hack = (settings.bookmarkHacks || []).find(h => h.id === btn.dataset.runHack);
+          if (hack) runBookmarkHack(hack);
+        });
+      });
+    }
+
+    function renderBookmarkHackSettings() {
+      const list = $("bookmark-hack-settings-list");
+      if (!list) return;
+      const hacks = settings.bookmarkHacks || [];
+      if (!hacks.length) {
+        list.innerHTML = '<div class="gx-hacks-empty">No bookmark hacks saved yet.</div>';
+        renderGameHacks();
+        return;
+      }
+      list.innerHTML = hacks.map(h => `
+        <div class="bookmark-hack-setting">
+          <input type="checkbox" data-hack-enabled="${escapeHtml(h.id)}" ${h.enabled !== false ? "checked" : ""} aria-label="Enable ${escapeHtml(h.name)}" />
+          <div class="hack-setting-info">
+            <strong>${escapeHtml(h.name || "Unnamed hack")}</strong>
+            <small>${escapeHtml(prettyKey(h.key || ""))}</small>
+          </div>
+          <button type="button" data-hack-edit="${escapeHtml(h.id)}">Edit</button>
+          <button type="button" data-hack-delete="${escapeHtml(h.id)}">Delete</button>
+        </div>`).join("");
+
+      list.querySelectorAll("[data-hack-enabled]").forEach(el => el.addEventListener("change", () => {
+        const hack = hacks.find(h => h.id === el.dataset.hackEnabled);
+        if (hack) { hack.enabled = el.checked; saveSettings(); renderGameHacks(); }
+      }));
+      list.querySelectorAll("[data-hack-delete]").forEach(el => el.addEventListener("click", () => {
+        settings.bookmarkHacks = hacks.filter(h => h.id !== el.dataset.hackDelete);
+        saveSettings(); renderBookmarkHackSettings();
+      }));
+      list.querySelectorAll("[data-hack-edit]").forEach(el => el.addEventListener("click", () => {
+        const hack = hacks.find(h => h.id === el.dataset.hackEdit);
+        if (!hack) return;
+        $("hack-name").value = hack.name || "";
+        $("hack-code").value = hack.code || "";
+        $("hack-key-badge").textContent = prettyKey(hack.key || "");
+        $("hack-add").dataset.editId = hack.id;
+        $("hack-add").textContent = "Save changes";
+        $("hack-name").focus();
+      }));
+      renderGameHacks();
+    }
 
     function buildSettings() {
       const root = $("settings-root");
@@ -3034,6 +3303,56 @@
         </div>
 
         <div class="tool-card">
+          <h2>${icon("mousePointerClick")} Auto clicker</h2>
+          <p class="card-hint">Set a keyboard shortcut and click interval. Move your pointer over the game, then toggle clicking. Sends pointer and mouse events for DOM/canvas games; some games require trusted hardware input and may ignore them.</p>
+          <div class="setting-row">
+            <div class="setting-label">${icon("keyboard")} Toggle key
+              <div class="setting-sub">Press this key to start or stop</div>
+            </div>
+            <div class="setting-control">
+              <span id="autoclicker-key-badge" class="key-badge">Not set</span>
+              <button id="autoclicker-set-key" class="mini-button" type="button">${icon("keyboard")} Set key</button>
+              <button id="autoclicker-clear-key" class="mini-button" type="button">Clear</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">${icon("mousePointerClick")} Milliseconds between clicks
+              <div class="setting-sub">Minimum 0.1 ms</div>
+            </div>
+            <div class="setting-control">
+              <input id="autoclicker-cps" type="number" min="0.1" max="60000" step="0.1" value="100" style="width:110px;" />
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">Status
+              <div class="setting-sub" id="autoclicker-status">Stopped</div>
+            </div>
+            <div class="setting-control">
+              <button id="autoclicker-start" class="mini-button" type="button">Start</button>
+              <button id="autoclicker-stop" class="mini-button danger" type="button">Stop</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <h2>${icon("bookmark")} Bookmark hacks</h2>
+          <p class="card-hint">Add bookmarklet JavaScript here. Each hack gets its own keybind and appears in the right-hand panel while a game is open. Paste the JavaScript code, with or without the javascript: prefix.</p>
+          <div class="bookmark-hack-editor">
+            <input id="hack-name" type="text" maxlength="50" placeholder="Hack name (e.g. Coreball helper)" />
+            <div class="setting-row">
+              <div class="setting-label">Keybind</div>
+              <div class="setting-control">
+                <span id="hack-key-badge" class="key-badge">Not set</span>
+                <button id="hack-set-key" class="mini-button" type="button">Set key</button>
+              </div>
+            </div>
+            <textarea id="hack-code" spellcheck="false" placeholder="Paste bookmarklet JavaScript here..."></textarea>
+            <button id="hack-add" class="mini-button" type="button">＋ Add bookmark hack</button>
+          </div>
+          <div id="bookmark-hack-settings-list" class="bookmark-hack-list"></div>
+        </div>
+
+        <div class="tool-card">
           <h2>${icon("eyeOff")} Cloaking &amp; disguise</h2>
           <p class="card-hint">Open this site hidden, or disguise the browser tab's name and icon.</p>
 
@@ -3065,6 +3384,10 @@
       $("set-cursor").value = settings.cursor;
       $("panic-key-badge").textContent = prettyKey(settings.panicKey);
       $("cloak-preset").value = settings.cloakPreset;
+      $("autoclicker-key-badge").textContent = prettyKey(settings.autoClickerKey);
+      $("autoclicker-cps").value = settings.autoClickerCps || 100;
+      $("hack-key-badge").textContent = "Not set";
+      renderBookmarkHackSettings();
 
       const destSelect = $("panic-dest");
       const customInput = $("panic-custom-url");
@@ -3092,6 +3415,90 @@
         applyCursor(settings.cursor);
         saveSettings();
       });
+
+      $("autoclicker-set-key").addEventListener("click", () => {
+        recordingKey = true;
+        $("autoclicker-key-badge").textContent = "Press a key…";
+        const once = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          settings.autoClickerKey = e.key;
+          $("autoclicker-key-badge").textContent = prettyKey(e.key);
+          recordingKey = false;
+          saveSettings();
+          window.removeEventListener("keydown", once, true);
+        };
+        window.addEventListener("keydown", once, true);
+      });
+
+      $("autoclicker-clear-key").addEventListener("click", () => {
+        settings.autoClickerKey = "";
+        $("autoclicker-key-badge").textContent = "Not set";
+        stopAutoClicker();
+        saveSettings();
+      });
+
+      $("autoclicker-cps").addEventListener("change", (e) => {
+        settings.autoClickerCps = Math.max(0.1, Math.min(60000, Number(e.target.value) || 100));
+        e.target.value = settings.autoClickerCps;
+        saveSettings();
+        if (autoClickerRunning) {
+          stopAutoClicker();
+          startAutoClicker();
+        }
+      });
+
+
+      $("hack-set-key").addEventListener("click", () => {
+        recordingHackKey = true;
+        $("hack-key-badge").textContent = "Press a key…";
+        const once = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const editingId = $("hack-add").dataset.editId;
+          $("hack-key-badge").textContent = prettyKey(e.key);
+          $("hack-key-badge").dataset.key = e.key;
+          recordingHackKey = false;
+          window.removeEventListener("keydown", once, true);
+        };
+        window.addEventListener("keydown", once, true);
+      });
+
+      $("hack-add").addEventListener("click", () => {
+        const name = $("hack-name").value.trim();
+        const code = $("hack-code").value.trim();
+        const key = $("hack-key-badge").dataset.key || "";
+        if (!name || !code) {
+          alert("Enter a hack name and paste its JavaScript code.");
+          return;
+        }
+        settings.bookmarkHacks = settings.bookmarkHacks || [];
+        const editId = $("hack-add").dataset.editId;
+        if (editId) {
+          const existing = settings.bookmarkHacks.find(h => h.id === editId);
+          if (existing) {
+            existing.name = name;
+            existing.code = code;
+            if (key) existing.key = key;
+          }
+          delete $("hack-add").dataset.editId;
+          $("hack-add").textContent = "＋ Add bookmark hack";
+        } else {
+          settings.bookmarkHacks.push({
+            id: "hack-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+            name, code, key, enabled: true
+          });
+        }
+        $("hack-name").value = "";
+        $("hack-code").value = "";
+        $("hack-key-badge").textContent = "Not set";
+        delete $("hack-key-badge").dataset.key;
+        saveSettings();
+        renderBookmarkHackSettings();
+      });
+
+      $("autoclicker-start").addEventListener("click", startAutoClicker);
+      $("autoclicker-stop").addEventListener("click", stopAutoClicker);
 
       $("panic-set-key").addEventListener("click", () => {
         recordingKey = true;
@@ -3285,11 +3692,17 @@
     });
 
     const GH = "https://cdn.jsdelivr.net/gh/";
+    const GAME_HTML_ROOT = GH + "timmysmathwork/html@main/";
+    const GAME_COVER_ROOT = GH + "timmysmathwork/covers@main/";
+    const GAME_ASSET_ROOT = GH + "timmysmathwork/assets@main/";
     const LIBRARIES = [
-      { name: "Zones", json: GH + "RoccosTacis/assets@main/zones.json",
-        vars: { HTML_URL: GH + "Rocky11234321/html@main",
-                COVER_URL: GH + "Rocky11234321/covers@main" },
-        roots: [GH + "Rocky11234321/html@main/"] }
+      { name: "Zones", json: GH + "timmysmathwork/assets@main/zones.json",
+        vars: {
+          HTML_URL: GAME_HTML_ROOT.replace(/\/$/, ""),
+          COVER_URL: GAME_COVER_ROOT.replace(/\/$/, ""),
+          ASSET_URL: GAME_ASSET_ROOT.replace(/\/$/, "")
+        },
+        roots: [GAME_HTML_ROOT] }
     ];
 
     LIBRARIES.forEach((l) => { l.map = new Map(); l.status = "loading"; });
@@ -3328,10 +3741,19 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize preview-icon"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
           </button>
         </div>
-        <div id="gx-status" class="gx-status"></div>
-        <iframe id="gx-frame" class="gx-frame" title="Game"
-          allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"></iframe>
-        <div id="gx-fail" class="gx-fail" hidden>Couldn't load</div>
+        <div class="gx-game-layout">
+          <div class="gx-game-main">
+            <div id="gx-status" class="gx-status"></div>
+            <iframe id="gx-frame" class="gx-frame" title="Game"
+              allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"></iframe>
+            <div id="gx-fail" class="gx-fail" hidden>Couldn't load</div>
+          </div>
+          <aside class="gx-hacks-panel" aria-label="Bookmark hacks">
+            <h3>Bookmark hacks</h3>
+            <p class="gx-hacks-note">Your saved hacks for this game. Click one or use its keybind.</p>
+            <div id="gx-hack-list" class="gx-hack-list"><div class="gx-hacks-empty">No hacks added yet. Add them in Settings.</div></div>
+          </aside>
+        </div>
       </div>`;
 
     const gxGrid = $("gx-grid");
@@ -3349,6 +3771,7 @@
     let gxCurrent = null;
     let gxHtml = "";
     let gxHtmlUrl = "";
+    let gxGameId = "";
     let gxToken = 0;
     let gxScrollY = 0;
 
@@ -3399,14 +3822,15 @@
         .map(([k, v]) => ({ name: k, ...v }));
     }
 
-    function gxAdd(lib, name, thumbs, plays) {
+    function gxAdd(lib, name, thumbs, plays, id) {
       const key = gxKey(name);
       if (!key) return;
       let g = lib.map.get(key);
       if (!g) {
-        g = { name, thumbs: [], plays: [] };
+        g = { name, thumbs: [], plays: [], id: "" };
         lib.map.set(key, g);
       }
+      if (!g.id && id && /^\d+$/.test(String(id).trim())) g.id = String(id).trim();
       for (const t of thumbs) if (!g.thumbs.includes(t) && g.thumbs.length < 6) g.thumbs.push(t);
       for (const p of plays) if (!g.plays.includes(p) && g.plays.length < 14) g.plays.push(p);
     }
@@ -3426,8 +3850,21 @@
         const thumbs = img
           ? gxExpand(img, lib.vars).flatMap((u) => gxAbsolute(u, lib.roots))
           : [];
+        // Covers live in their own repository. Try common extensions and
+        // filename styles so games without an image field still get artwork.
+        const coverStem = name.trim().replace(/\\.(html?|php)$/i, "");
+        const coverNames = [
+          coverStem, coverStem.replace(/\\s+/g, ""), coverStem.replace(/\\s+/g, "-"),
+          coverStem.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+        ];
+        for (const stem of [...new Set(coverNames)]) {
+          for (const ext of [".png", ".jpg", ".jpeg", ".webp", ".svg"]) {
+            const candidate = GAME_COVER_ROOT + encodeURIComponent(stem).replace(/%2F/gi, "/") + ext;
+            if (!thumbs.includes(candidate)) thumbs.push(candidate);
+          }
+        }
 
-        gxAdd(lib, name, thumbs, plays);
+        gxAdd(lib, name, thumbs, plays, gxPick(entry, ["id"]));
         count++;
       }
       return count;
@@ -3562,12 +3999,263 @@
       return text;
     }
 
-    function gxWithBase(html, url) {
-      const base = url.slice(0, url.lastIndexOf("/") + 1);
-      const tag = `<base href="${base}">`;
-      return /<head[^>]*>/i.test(html)
-        ? html.replace(/<head[^>]*>/i, (m) => m + tag)
-        : tag + html;
+    function gxWithBase(html, url, gameId) {
+      const pageUrl = new URL(url);
+      const pageDir = new URL(".", pageUrl).href;
+      const assetRoot = GAME_ASSET_ROOT;
+      // Folder with this game's extra files inside the assets repository.
+      const folderBase = gameId ? assetRoot + gameId + "/" : "";
+      const doc = new DOMParser().parseFromString(html, "text/html");
+
+      // Path of a file inside someone else's GitHub repo (gn-math,
+      // freebuisness, etc.). Games copied into the assets repo keep the
+      // same folder layout, so this is also their local path.
+      const foreignPath = (value) => {
+        try {
+          const u = new URL(value, pageDir);
+          const seg = u.pathname.split("/").filter(Boolean);
+          if (u.host === "cdn.jsdelivr.net" && seg[0] === "gh" && seg[1] !== "timmysmathwork")
+            return seg.slice(3).join("/");
+          if (u.host === "raw.githubusercontent.com" && seg[0] !== "timmysmathwork")
+            return seg.slice(3).join("/");
+          // githack mirrors: /owner/repo/branch/path — path is slice(3).
+          if (/\\.githack\\.com$/i.test(u.host) && seg[0] !== "timmysmathwork")
+            return seg.slice(3).join("/");
+          return null;
+        } catch (_) { return null; }
+      };
+
+      // Path prefix of this page's own repository on jsdelivr (/gh/owner/repo@ver/).
+      const repoRoot = (() => {
+        const seg = pageUrl.pathname.split("/").filter(Boolean);
+        return seg[0] === "gh" && seg.length > 2 ? "/" + seg.slice(0, 3).join("/") + "/" : "/";
+      })();
+
+      let foreignBase = "";
+      for (const b of doc.querySelectorAll("base")) {
+        const href = b.getAttribute("href") || "";
+        // foreignPath returns "" (not null) when the base points at the
+        // root of a foreign repo, so compare against null explicitly.
+        if (/^https?:\/\//i.test(href) && foreignPath(href) != null) { foreignBase = href; break; }
+      }
+      doc.querySelectorAll("base").forEach((node) => node.remove());
+
+      if (foreignBase && !folderBase) {
+        // No local asset folder for this game: keep the original base tag so
+        // the game can still find its files.
+        const keep = doc.createElement("base");
+        keep.href = foreignBase;
+        doc.head.prepend(keep);
+        return "<!doctype html>" + doc.documentElement.outerHTML;
+      }
+
+      // Multi-file games: point the document at this game's folder in the
+      // assets repo so every relative file loads from there.
+      const base = doc.createElement("base");
+      base.href = foreignBase && folderBase ? folderBase : pageDir;
+      doc.head.prepend(base);
+      const docBase = base.href;
+
+      const isExternal = (value) =>
+        /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|data:|blob:|javascript:)/i.test(value);
+
+      // Map a reference to the matching file in the assets repository.
+      // Relative paths keep their position inside the repo; references to
+      // other people's repos are redirected into this game's local folder.
+      // The original URL is kept as a fallback.
+      const assetUrlFor = (raw, relativeTo = docBase) => {
+        if (!raw) return null;
+        if (/^https?:\/\//i.test(raw)) {
+          const fp = foreignPath(raw);
+          if (fp == null || !folderBase) return null;
+          const enc = fp.split("/").map(encodeURIComponent).join("/");
+          return {
+            asset: folderBase + enc,
+            candidates: [folderBase + enc, assetRoot + enc, raw],
+            original: raw
+          };
+        }
+        if (isExternal(raw)) return null;
+        try {
+          const original = new URL(raw, relativeTo);
+          if (original.origin !== pageUrl.origin || !original.pathname.startsWith(repoRoot)) return null;
+          const inRepo = original.pathname.slice(repoRoot.length);
+          if (!inRepo) return null;
+          return {
+            asset: assetRoot + inRepo.split("/").map(encodeURIComponent).join("/") +
+              original.search + original.hash,
+            original: original.href
+          };
+        } catch (_) {
+          return null;
+        }
+      };
+
+      const setResource = (node, attr, raw, relativeTo = pageDir) => {
+        const mapped = assetUrlFor(raw, relativeTo);
+        if (!mapped) return;
+        const candidates = mapped.candidates || [mapped.asset, mapped.original];
+        let idx = 0;
+        node.setAttribute("data-gx-original-" + attr, mapped.original);
+        node.setAttribute(attr, candidates[0]);
+        node.addEventListener("error", function retryNext() {
+          idx++;
+          if (idx >= candidates.length) return;
+          this.setAttribute(attr, candidates[idx]);
+        });
+      };
+
+      // Standard HTML resource elements, including less common game resources.
+      const resourceAttrs = [
+        ["script[src]", "src"], ["link[href]", "href"], ["img[src]", "src"],
+        ["audio[src]", "src"], ["video[src]", "src"], ["source[src]", "src"],
+        ["track[src]", "src"], ["object[data]", "data"], ["embed[src]", "src"],
+        ["iframe[src]", "src"], ["input[src]", "src"], ["image[href]", "href"],
+        ["image[xlink\\:href]", "xlink:href"], ["use[href]", "href"],
+        ["use[xlink\\:href]", "xlink:href"]
+      ];
+      for (const [selector, attr] of resourceAttrs) {
+        doc.querySelectorAll(selector).forEach((node) => {
+          setResource(node, attr, node.getAttribute(attr));
+        });
+      }
+
+      // srcset can contain multiple files in one attribute.
+      doc.querySelectorAll("[srcset]").forEach((node) => {
+        const raw = node.getAttribute("srcset");
+        if (!raw) return;
+        const rewritten = raw.split(",").map((part) => {
+          const bits = part.trim().split(/\s+/);
+          const mapped = assetUrlFor(bits[0]);
+          if (mapped) bits[0] = mapped.asset;
+          return bits.join(" ");
+        }).join(", ");
+        node.setAttribute("srcset", rewritten);
+      });
+
+      // Inline CSS paths are relative to the HTML document. External CSS files
+      // keep their own URL as the browser base, so their url() references work
+      // naturally after the stylesheet itself is mapped to the assets repo.
+      const rewriteCss = (css, relativeTo = docBase) => css.replace(
+        /url\(\s*(['"]?)([^'")]+)\1\s*\)/gi,
+        (whole, quote, raw) => {
+          const mapped = assetUrlFor(raw.trim(), relativeTo);
+          return mapped ? `url("${mapped.asset}")` : whole;
+        }
+      );
+      doc.querySelectorAll("[style]").forEach((node) => {
+        node.setAttribute("style", rewriteCss(node.getAttribute("style") || ""));
+      });
+      doc.querySelectorAll("style").forEach((node) => {
+        node.textContent = rewriteCss(node.textContent || "");
+      });
+
+      // Install the runtime resolver before any game scripts execute. This
+      // covers fetch(), XHR, dynamic imports using fetch, and CSS/worker/data
+      // files requested by games after startup.
+      const bridge = doc.createElement("script");
+      bridge.textContent = `(() => {
+        const ASSET_ROOT = ${JSON.stringify(assetRoot)};
+        const PAGE_BASE = ${JSON.stringify(docBase)};
+        const GAME_FOLDER = ${JSON.stringify(folderBase)};
+        // The document lives at a blob: URL, which cannot be used as a base
+        // (engines like Unity do new URL(path, document.URL) and crash).
+        // Report the game's real URL instead.
+        try {
+          const realUrl = ${JSON.stringify(url)};
+          Object.defineProperty(document, "URL", { get: () => realUrl, configurable: true });
+          Object.defineProperty(document, "documentURI", { get: () => realUrl, configurable: true });
+        } catch (_) {}
+        const foreignPath = (value) => {
+          try {
+            const u = new URL(value, PAGE_BASE);
+            const seg = u.pathname.split("/").filter(Boolean);
+            if (u.host === "cdn.jsdelivr.net" && seg[0] === "gh" && seg[1] !== "timmysmathwork")
+              return seg.slice(3).join("/");
+            if (u.host === "raw.githubusercontent.com" && seg[0] !== "timmysmathwork")
+              return seg.slice(3).join("/");
+            if (/\\.githack\\.com$/i.test(u.host) && seg[0] !== "timmysmathwork")
+              return seg.slice(3).join("/");
+            return null;
+          } catch (_) { return null; }
+        };
+        const encPath = (p) => p.split("/").map(encodeURIComponent).join("/");
+        const toAsset = (value, base = PAGE_BASE) => {
+          try {
+            const raw = value instanceof Request ? value.url : String(value);
+            if (/^https?:\\/\\//i.test(raw)) {
+              const fp = foreignPath(raw);
+              if (fp == null) return null;
+              // File from another repo: try this game's folder, then the
+              // assets repo root, then GitHub raw (for files too big for
+              // jsdelivr), then the original URL.
+              const urls = [];
+              if (GAME_FOLDER) urls.push(GAME_FOLDER + encPath(fp));
+              urls.push(ASSET_ROOT + encPath(fp));
+              urls.push("https://raw.githubusercontent.com/timmysmathwork/assets/main/" + encPath(fp));
+              urls.push(raw);
+              return { urls };
+            }
+            if (raw.startsWith("//") || /^(?:[a-z][a-z0-9+.-]*:|data:|blob:|javascript:)/i.test(raw)) return null;
+            const original = new URL(raw, base);
+            const seg = original.pathname.split("/").filter(Boolean);
+            if (original.host !== "cdn.jsdelivr.net" || seg[0] !== "gh" || seg[1] !== "timmysmathwork") return null;
+            const inRepo = seg.slice(3).join("/");
+            if (!inRepo) return null;
+            // jsdelivr refuses files over 20 MB; fall back to GitHub's raw
+            // server, which serves the same file from the same repo.
+            const jsd = ASSET_ROOT + encPath(inRepo) + original.search + original.hash;
+            const rawGh = "https://raw.githubusercontent.com/timmysmathwork/assets/main/" + encPath(inRepo) + original.search + original.hash;
+            return { urls: [jsd, rawGh, original.href] };
+          } catch (_) { return null; }
+        };
+
+        const nativeFetch = window.fetch.bind(window);
+        window.fetch = async (input, init) => {
+          const mapped = toAsset(input);
+          if (!mapped) return nativeFetch(input, init);
+          const makeRequest = (url) =>
+            input instanceof Request ? new Request(url, input) : url;
+          let lastResponse = null;
+          for (const url of mapped.urls) {
+            try {
+              const response = await nativeFetch(makeRequest(url), init);
+              if (response.ok) return response;
+              lastResponse = response;
+            } catch (_) {}
+          }
+          return lastResponse || nativeFetch(makeRequest(mapped.urls[mapped.urls.length - 1]), init);
+        };
+
+        const nativeOpen = XMLHttpRequest.prototype.open;
+        const nativeSend = XMLHttpRequest.prototype.send;
+        XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+          const mapped = toAsset(url);
+          this.__gxRequest = mapped
+            ? { method, rest, urls: [...mapped.urls], tried: 0 }
+            : null;
+          return nativeOpen.call(this, method, mapped ? mapped.urls[0] : url, ...rest);
+        };
+        XMLHttpRequest.prototype.send = function(...args) {
+          const request = this.__gxRequest;
+          if (request && request.urls.length > 1) {
+            const advance = () => {
+              if (request.tried >= request.urls.length - 1) return;
+              request.tried++;
+              nativeOpen.call(this, request.method, request.urls[request.tried], ...request.rest);
+              nativeSend.apply(this, args);
+            };
+            this.addEventListener("load", () => {
+              if (this.status >= 400) advance();
+            }, { once: true });
+            this.addEventListener("error", advance, { once: true });
+          }
+          return nativeSend.apply(this, args);
+        };
+      })();`;
+      doc.head.insertBefore(bridge, base.nextSibling);
+
+      return "<!doctype html>" + doc.documentElement.outerHTML;
     }
 
     function gxRevokeBlob() {
@@ -3580,6 +4268,7 @@
       gxCurrent = game;
       gxHtml = "";
       gxHtmlUrl = "";
+      gxGameId = /^\d+$/.test(String(game.id || "").trim()) ? String(game.id).trim() : "";
       gxRevokeBlob();
       gxScrollY = window.scrollY;
 
@@ -3590,16 +4279,37 @@
       gxFrame.src = "about:blank";
       gxBrowser.hidden = true;
       gxPlayer.hidden = false;
+      renderGameHacks();
       window.scrollTo({ top: 0 });
 
       for (const url of game.plays) {
         try {
-          const html = await gxFetchHtml(url);
+          let html = await gxFetchHtml(url);
+          let pageUrl = url;
+          let folderId = "";
           if (token !== gxToken) return;
+          // Multi-file games: the entry HTML either points at another repo
+          // through a <base> tag or references it with absolute URLs. If
+          // this game has a folder in the assets repo, load that local copy
+          // instead so every file comes from our own repos. Only rewrite
+          // URLs through the folder when the folder copy actually loaded —
+          // otherwise keep the original references so the game still finds
+          // its files.
+          if (gxGameId) {
+            try {
+              const folderUrl = GAME_ASSET_ROOT + gxGameId + "/index.html";
+              const folderHtml = await gxFetchHtml(folderUrl);
+              if (token !== gxToken) return;
+              html = folderHtml;
+              pageUrl = folderUrl;
+              folderId = gxGameId;
+            } catch {}
+          }
           gxHtml = html;
-          gxHtmlUrl = url;
+          gxHtmlUrl = pageUrl;
+          gxGameId = folderId;
           gxBlobUrl = URL.createObjectURL(
-            new Blob([gxWithBase(html, url)], { type: "text/html" })
+            new Blob([gxWithBase(html, pageUrl, gxGameId)], { type: "text/html" })
           );
           gxFrame.src = gxBlobUrl;
           gxStatus.textContent = "";
@@ -3620,6 +4330,7 @@
       gxCurrent = null;
       gxHtml = "";
       gxHtmlUrl = "";
+      gxGameId = "";
       gxFrame.src = "about:blank";
       gxFrame.hidden = false;
       gxFail.hidden = true;
@@ -3661,7 +4372,7 @@
       const frame = doc.createElement("iframe");
       frame.setAttribute("allow", "fullscreen; autoplay; gamepad; clipboard-read; clipboard-write");
       frame.style.cssText = "border:0;display:block;width:100%;height:100%;";
-      frame.srcdoc = gxWithBase(gxHtml, gxHtmlUrl);
+      frame.srcdoc = gxWithBase(gxHtml, gxHtmlUrl, gxGameId);
       doc.body.appendChild(frame);
 
       closeGame();
@@ -3730,27 +4441,7 @@
 
       initializeModels();
       updateControls();
-
-      // Automatically boot the requested TinyLlama 1.1B Chat v1.0 model.
-      const tinyLlama = models.find((model) =>
-        /TinyLlama-1\.1B-Chat-v1\.0-q4f16_1-MLC(?:-1k)?$/i.test(model.id)
-      ) || models.find((model) =>
-        /tinyllama.*1\.1b.*v1\.0.*q4f16_1/i.test(model.id)
-      );
-
-      if (tinyLlama) {
-        aiChoice.value = tinyLlama.id;
-        activeProvider = "local";
-        selectedModel = tinyLlama;
-        setStatus("Starting TinyLlama 1.1B in the background...");
-        loadLocalModel(tinyLlama);
-      } else {
-        setStatus("TinyLlama 1.1B v1.0 is not in the available WebLLM model list.", "error");
-      }
-    }).catch(e => {
-      console.warn("Local AI library unavailable", e);
-      setStatus("Local AI could not start. Check your connection and WebGPU support.", "error");
-    });
+    }).catch(e => console.warn("Local AI library unavailable", e));
       /* ================= Movies & Music (same sources as achroma) ================= */
     // How they do it: open metadata API (/api/movies, /api/music/ytm) + TMDB images
     // + third-party embed players (VidZee, vidsrc.su, CineSrc) for movies,
@@ -4151,23 +4842,47 @@
         const modal = mv.modal;
         modal.innerHTML = "";
 
-        const inner = makeEl("div", "mv-modal-inner mv-player-focused");
-        const playerHead = makeEl("div", "mv-player-head");
-        const closeBtn = makeEl("button", "mv-modal-close mv-player-close", "Close");
+        const inner = makeEl("div", "mv-modal-inner");
+        const heroEl = makeEl("div", "mv-modal-hero");
+        const heroImg = document.createElement("img");
+        heroImg.alt = "";
+        heroImg.src = backdropUrl(data.backdrop || data.poster);
+        const closeBtn = makeEl("button", "mv-modal-close");
         closeBtn.type = "button";
-        closeBtn.setAttribute("aria-label", "Close player");
-        closeBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span>Close</span>';
+        closeBtn.setAttribute("aria-label", "Close");
+        closeBtn.innerHTML =
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
         closeBtn.addEventListener("click", () => {
-          if (mv.frame) mv.frame.src = "about:blank";
           modal.hidden = true;
           modal.innerHTML = "";
         });
-        playerHead.appendChild(makeEl("span", "mv-player-kicker", "NOW PLAYING"));
-        playerHead.appendChild(closeBtn);
-        inner.appendChild(playerHead);
+        heroEl.append(heroImg, closeBtn);
+        inner.appendChild(heroEl);
 
-        const srcRow = makeEl("div", "mv-srcrow mv-player-sources");
-        srcRow.appendChild(makeEl("span", "mv-note", "Source"));
+        const bodyEl = makeEl("div", "mv-modal-body");
+        bodyEl.appendChild(makeEl("h2", null, data.title || "Unknown"));
+        const meta = makeEl("div", "mv-meta");
+        if (data.year) meta.appendChild(makeEl("span", null, data.year));
+        if (data.rating) meta.appendChild(makeEl("span", "mv-star", "\u2605 " + data.rating));
+        if (data.runtime) meta.appendChild(makeEl("span", null, data.runtime + " min"));
+        (data.genres || []).slice(0, 5).forEach((g) => meta.appendChild(makeEl("span", null, g)));
+        bodyEl.appendChild(meta);
+        if (data.tagline) bodyEl.appendChild(makeEl("div", "mv-note", data.tagline));
+        bodyEl.appendChild(makeEl("p", "mv-overview", data.overview || ""));
+
+        if (data.trailer) {
+          const trailerBtn = makeEl("button", "mv-srcbtn", "\u25b6 Trailer");
+          trailerBtn.type = "button";
+          trailerBtn.addEventListener("click", () => {
+            const frame = modal.querySelector(".mv-frame-wrap iframe");
+            if (frame) frame.src = "https://www.youtube-nocookie.com/embed/" + data.trailer + "?autoplay=1";
+            modal.querySelector(".mv-modal-body").scrollIntoView({ behavior: "smooth" });
+          });
+          bodyEl.appendChild(trailerBtn);
+        }
+
+        const srcRow = makeEl("div", "mv-srcrow");
+        srcRow.appendChild(makeEl("span", "mv-note", "Source:"));
         MV_SOURCES.forEach((src) => {
           const btn = makeEl("button", "mv-srcbtn" + (src.id === mv.modalSource ? " active" : ""), src.name);
           btn.type = "button";
@@ -4178,48 +4893,38 @@
           });
           srcRow.appendChild(btn);
         });
-        inner.appendChild(srcRow);
+        bodyEl.appendChild(srcRow);
 
-        const frameWrap = makeEl("div", "mv-frame-wrap mv-player-frame-wrap");
+        const frameWrap = makeEl("div", "mv-frame-wrap");
         const frame = document.createElement("iframe");
         frame.allow = "fullscreen; autoplay; encrypted-media; picture-in-picture";
-        frame.allowFullscreen = true;
-        frame.title = "Movie or TV player";
+        frame.title = "Player";
         frameWrap.appendChild(frame);
-        inner.appendChild(frameWrap);
+        bodyEl.appendChild(frameWrap);
         mv.frame = frame;
 
-        const playerActions = makeEl("div", "mv-player-actions");
-        const fullBtn = makeEl("button", "mv-srcbtn", "Fullscreen");
-        fullBtn.type = "button";
-        fullBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg> Fullscreen';
-        fullBtn.addEventListener("click", () => {
-          if (frame.requestFullscreen) frame.requestFullscreen().catch(() => {});
-        });
-        playerActions.appendChild(fullBtn);
-        inner.appendChild(playerActions);
-
         if (data.media === "tv" && data.seasons && data.seasons.length) {
-          const seasonRow = makeEl("div", "mv-srcrow mv-player-season");
-          seasonRow.appendChild(makeEl("span", "mv-note", "Season"));
-          data.seasons.forEach((season) => {
-            const btn = makeEl("button", "mv-srcbtn" + (season.number === mv.modalSeason ? " active" : ""), season.name || ("Season " + season.number));
+          const seasonRow = makeEl("div", "mv-srcrow");
+          seasonRow.appendChild(makeEl("span", "mv-note", "Season:"));
+          data.seasons.forEach((s) => {
+            const btn = makeEl("button", "mv-srcbtn" + (s.number === mv.modalSeason ? " active" : ""), s.name || ("Season " + s.number));
             btn.type = "button";
             btn.addEventListener("click", () => {
-              mv.modalSeason = season.number;
+              mv.modalSeason = s.number;
               mv.modalEpisode = 1;
               mvRenderModal();
             });
             seasonRow.appendChild(btn);
           });
-          inner.appendChild(seasonRow);
-          inner.appendChild(makeEl("h3", "mv-player-episodes-title", "Episodes"));
+          bodyEl.appendChild(seasonRow);
+          bodyEl.appendChild(makeEl("h3", null, "Episodes"));
           const eps = makeEl("div", "mv-eps");
           eps.appendChild(makeEl("div", "mv-note", "Loading episodes..."));
-          inner.appendChild(eps);
+          bodyEl.appendChild(eps);
           mvRenderEpisodes(eps);
         }
 
+        inner.appendChild(bodyEl);
         modal.appendChild(inner);
         mvPlayCurrent();
       }
@@ -4405,7 +5110,6 @@
           dock.hidden = true;
           toolbar.hidden = false;
           body.hidden = false;
-          reopen.hidden = false;
         };
         const reopen = makeEl("button", "mu-tab", "Now playing");
         reopen.type = "button";
@@ -4920,7 +5624,7 @@
         }
       }, 500);
 
-      /* ============================ page wiring ============================ */
+            /* ============================ page wiring ============================ */
 
       const origShowPage = showPage;
       showPage = function (pageId) {
@@ -4932,7 +5636,7 @@
         }
         if (pageId === "music-page") {
           topbarTitle.textContent = "Music";
-          topbarSubtitle.textContent = "Search & stream songs";
+          topbarSubtitle.textContent = "Music";
           muBuild();
         }
       };
