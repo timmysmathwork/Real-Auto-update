@@ -26,7 +26,7 @@
     (() => {
       "use strict";
 
-      const BASE = "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html/";
+      const BASE = "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/";
       const FILE_URL = BASE + "updated-site.html";
       const CHECK_INTERVAL = 60000;
       const TIMEOUT = 20000;
@@ -42,6 +42,7 @@
         clearTimeout(statusTimer);
         status.textContent = message;
         status.style.display = "block";
+
         if (!persistent) {
           statusTimer = setTimeout(() => {
             status.style.display = "none";
@@ -51,16 +52,18 @@
 
       function displayHTML(html) {
         const doc = new DOMParser().parseFromString(html, "text/html");
+
         if (!doc.documentElement || !doc.head || !doc.body) {
           throw new Error("Invalid HTML document");
         }
 
-        // Make relative URLs resolve against the GitHub repository.
         let base = doc.querySelector("base");
+
         if (!base) {
           base = doc.createElement("base");
           doc.head.prepend(base);
         }
+
         base.href = BASE;
 
         let resetStyle = doc.getElementById("svg-window-reset");
@@ -69,8 +72,16 @@
         resetStyle = doc.createElement("style");
         resetStyle.id = "svg-window-reset";
         resetStyle.textContent = `
-          html { width:100% !important; min-height:100% !important; margin:0 !important; }
-          body { width:100% !important; min-height:100vh !important; margin:0 !important; }
+          html {
+            width: 100% !important;
+            min-height: 100% !important;
+            margin: 0 !important;
+          }
+          body {
+            width: 100% !important;
+            min-height: 100vh !important;
+            margin: 0 !important;
+          }
         `;
         doc.head.appendChild(resetStyle);
 
@@ -87,12 +98,19 @@
         try {
           const response = await fetch(
             FILE_URL + "?cache_bust=" + Date.now(),
-            { method: "GET", cache: "no-store", signal: controller.signal }
+            {
+              method: "GET",
+              cache: "no-store",
+              signal: controller.signal
+            }
           );
 
-          if (!response.ok) throw new Error("HTTP " + response.status);
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
 
           const html = await response.text();
+
           if (!/<html[\s>]/i.test(html) && !/<!doctype\s+html/i.test(html)) {
             throw new Error("Downloaded file is not HTML");
           }
