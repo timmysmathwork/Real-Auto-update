@@ -1,100 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="100%"
-     height="100%"
-     viewBox="0 0 1280 720"
-     preserveAspectRatio="none">
-
-  <title>Timmys Math Work</title>
-  <desc>Fetches the website HTML from jsDelivr and renders it.</desc>
-
-  <rect width="1280" height="720" fill="#07120c"/>
-
-  <text id="status"
-        x="640" y="360"
-        fill="#3ddc97"
-        font-family="system-ui, sans-serif"
-        font-size="24"
-        text-anchor="middle">
-    Loading Timmys Math Work...
-  </text>
-
-  <foreignObject id="container"
-                 x="0" y="0"
-                 width="1280" height="720"
-                 visibility="hidden">
-    <div xmlns="http://www.w3.org/1999/xhtml"
-         style="width:100%;height:100%;margin:0;">
-      <iframe id="site"
-              title="Timmys Math Work"
-              sandbox="allow-scripts allow-forms allow-popups allow-downloads"
-              style="display:block;width:100%;height:100%;border:0;background:#07120c;">
-      </iframe>
-    </div>
-  </foreignObject>
-
-  <script type="application/ecmascript"><![CDATA[
-    (function () {
-      const SITE_URL =
-        "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html";
-
-      const BASE_URL =
-        "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/";
-
-      const frame = document.getElementById("site");
-      const container = document.getElementById("container");
-      const status = document.getElementById("status");
-
-      let busy = false;
-
-      async function loadSite() {
-        if (busy) return;
-        busy = true;
-
-        try {
-          const url = new URL(SITE_URL);
-          url.searchParams.set("_refresh", Date.now().toString());
-
-          const response = await fetch(url.href, {
-            cache: "no-store"
-          });
-
-          if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-          }
-
-          const html = await response.text();
-
-          // Set the base address before the site's own resources.
-          const base = '<base href="' + BASE_URL + '">';
-          let documentHTML;
-
-          if (/<head\b[^>]*>/i.test(html)) {
-            documentHTML = html.replace(
-              /<head\b[^>]*>/i,
-              function (head) {
-                return head + base;
-              }
-            );
-          } else {
-            documentHTML =
-              "<!doctype html><html><head>" + base +
-              "</head><body>" + html + "</body></html>";
-          }
-
-          frame.srcdoc = documentHTML;
-          container.setAttribute("visibility", "visible");
-          status.textContent = "";
-
-        } catch (error) {
-          status.textContent = "Load failed: " + error.message;
-        } finally {
-          busy = false;
-        }
-      }
-
-      loadSite();
-      setInterval(loadSite, 60000);
-    }());
-  ]]></script>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1280 720" preserveAspectRatio="none"><title>Timmys Math Work</title><rect width="1280" height="720" fill="#07120c"/><foreignObject width="1280" height="720"><div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;position:relative"><p id="status" style="color:#3ddc97">Loading...</p><iframe id="site" title="Timmys Math Work" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-downloads" style="position:absolute;inset:0;width:100%;height:100%;border:0;visibility:hidden"></iframe></div></foreignObject><script><![CDATA[
+(() => {
+const target='https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/site.svg';
+const f=document.getElementById('site'), s=document.getElementById('status');
+let previous='',active='',busy=false;
+async function refresh(){
+if(busy)return;busy=true;
+try{
+const u=new URL(target);u.searchParams.set('_refresh',Date.now());
+const r=await fetch(u,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);
+const text=await r.text();
+const d=new DOMParser().parseFromString(text,'image/svg+xml');
+if(d.querySelector('parsererror')||d.documentElement.localName!=='svg')throw Error('Invalid SVG response');
+if(text===previous)return;
+const next=URL.createObjectURL(new Blob([text],{type:'image/svg+xml'}));
+const old=active;active=next;f.src=next;f.style.visibility='visible';previous=text;
+if(old)setTimeout(()=>URL.revokeObjectURL(old),5000);
+}catch(e){s.textContent='Update failed: '+e.message;console.error(e);}
+finally{busy=false;}
+}
+refresh();setInterval(refresh,60000);
+})();
+]]></script></svg>
