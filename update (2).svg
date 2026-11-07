@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1280 720" width="100%">
+  <title>Timmys Math Work</title>
+  <desc>Auto-updating SVG. Shows the live site (never source code) and reloads it every 60 seconds so it always displays the newest version pushed to GitHub.</desc>
+
+  
+  <rect fill="#07120c" height="720" width="1280"/>
+  <text fill="#3ddc97" font-family="system-ui, -apple-system, &apos;Segoe UI&apos;, sans-serif" font-size="28" text-anchor="middle" x="640" y="340">Loading Timmys Math Work...</text>
+  <text fill="#6a8f7d" font-family="system-ui, -apple-system, &apos;Segoe UI&apos;, sans-serif" font-size="15" text-anchor="middle" x="640" y="380">Auto-updating from GitHub</text>
+
+  
+  
+
+  
+  
+</svg>
