@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1280 720" preserveAspectRatio="none"><title>Timmys Math Work</title><rect width="1280" height="720" fill="#07120c"/><foreignObject width="1280" height="720"><div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;position:relative"><p id="status" style="color:#3ddc97">Loading...</p><iframe id="site" title="Timmys Math Work" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-downloads" style="position:absolute;inset:0;width:100%;height:100%;border:0;visibility:hidden"></iframe></div></foreignObject><script><![CDATA[
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1280 720" preserveAspectRatio="none" style="display:block;margin:0;padding:0;overflow:hidden;">
+<title>Timmys Math Work</title>
+<rect x="0" y="0" width="1280" height="720" fill="#07120c"/>
+<foreignObject x="0" y="0" width="1280" height="720">
+<div xmlns="http://www.w3.org/1999/xhtml" style="position:relative;width:100%;height:100%;margin:0;padding:0;overflow:hidden;background:#07120c;">
+<p id="status" style="position:absolute;top:0;left:0;margin:0;padding:12px;color:#3ddc97;font-family:system-ui,sans-serif;">Loading...</p>
+<iframe id="site" title="Timmys Math Work" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-downloads" style="position:absolute;top:0;left:0;display:block;width:100%;height:100%;margin:0;padding:0;border:0;visibility:hidden;"></iframe>
+</div></foreignObject>
+<script><![CDATA[
 (() => {
 const target='https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/site.svg';
 const f=document.getElementById('site'), s=document.getElementById('status');
