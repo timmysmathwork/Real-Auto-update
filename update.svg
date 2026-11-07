@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1280 720" width="100%">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%"
+     viewBox="0 0 1280 720"
+     preserveAspectRatio="none">
+
   <title>Timmys Math Work</title>
-  <desc>Auto-updating SVG. Shows the live site (never source code) and reloads it every 60 seconds so it always displays the newest version pushed to GitHub.</desc>
+  <desc>Loads updated-site.html from jsDelivr and reloads it every 60 seconds.</desc>
 
-  
-  <rect fill="#07120c" height="720" width="1280"/>
-  <text fill="#3ddc97" font-family="system-ui, -apple-system, &apos;Segoe UI&apos;, sans-serif" font-size="28" text-anchor="middle" x="640" y="340">Loading Timmys Math Work...</text>
-  <text fill="#6a8f7d" font-family="system-ui, -apple-system, &apos;Segoe UI&apos;, sans-serif" font-size="15" text-anchor="middle" x="640" y="380">Auto-updating from GitHub</text>
+  <rect width="1280" height="720" fill="#07120c"/>
 
-  
-  
+  <foreignObject x="0" y="0" width="1280" height="720">
+    <div xmlns="http://www.w3.org/1999/xhtml"
+         style="width:100%;height:100%;margin:0;overflow:hidden;">
+      <iframe
+        id="site"
+        title="Timmys Math Work"
+        src="https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html"
+        style="display:block;width:100%;height:100%;border:0;background:#07120c;">
+      </iframe>
+    </div>
+  </foreignObject>
 
-  
-  
+  <script type="application/ecmascript"><![CDATA[
+    (function () {
+      const SITE_URL =
+        "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html";
+
+      const frame = document.getElementById("site");
+
+      setInterval(function () {
+        const url = new URL(SITE_URL);
+        url.searchParams.set("_refresh", Date.now().toString());
+        frame.setAttribute("src", url.href);
+      }, 60000);
+    }());
+  ]]></script>
 </svg>
