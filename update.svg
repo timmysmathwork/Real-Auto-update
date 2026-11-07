@@ -6,18 +6,29 @@
      preserveAspectRatio="none">
 
   <title>Timmys Math Work</title>
-  <desc>Displays the website and reloads it every 60 seconds.</desc>
+  <desc>Fetches the website HTML from jsDelivr and renders it.</desc>
 
   <rect width="1280" height="720" fill="#07120c"/>
 
-  <foreignObject x="0" y="0" width="1280" height="720">
+  <text id="status"
+        x="640" y="360"
+        fill="#3ddc97"
+        font-family="system-ui, sans-serif"
+        font-size="24"
+        text-anchor="middle">
+    Loading Timmys Math Work...
+  </text>
+
+  <foreignObject id="container"
+                 x="0" y="0"
+                 width="1280" height="720"
+                 visibility="hidden">
     <div xmlns="http://www.w3.org/1999/xhtml"
-         style="width:100%;height:100%;margin:0;overflow:hidden;">
-      <iframe
-        id="site"
-        title="Timmys Math Work"
-        src="https://timmysmathwork.github.io/Real-Auto-update/updated-site.html"
-        style="display:block;width:100%;height:100%;border:0;background:#07120c;">
+         style="width:100%;height:100%;margin:0;">
+      <iframe id="site"
+              title="Timmys Math Work"
+              sandbox="allow-scripts allow-forms allow-popups allow-downloads"
+              style="display:block;width:100%;height:100%;border:0;background:#07120c;">
       </iframe>
     </div>
   </foreignObject>
@@ -25,15 +36,65 @@
   <script type="application/ecmascript"><![CDATA[
     (function () {
       const SITE_URL =
-        "https://timmysmathwork.github.io/Real-Auto-update/updated-site.html";
+        "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/updated-site.html";
+
+      const BASE_URL =
+        "https://cdn.jsdelivr.net/gh/timmysmathwork/Real-Auto-update@main/";
 
       const frame = document.getElementById("site");
+      const container = document.getElementById("container");
+      const status = document.getElementById("status");
 
-      setInterval(function () {
-        const url = new URL(SITE_URL);
-        url.searchParams.set("_refresh", Date.now().toString());
-        frame.setAttribute("src", url.href);
-      }, 60000);
+      let busy = false;
+
+      async function loadSite() {
+        if (busy) return;
+        busy = true;
+
+        try {
+          const url = new URL(SITE_URL);
+          url.searchParams.set("_refresh", Date.now().toString());
+
+          const response = await fetch(url.href, {
+            cache: "no-store"
+          });
+
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
+
+          const html = await response.text();
+
+          // Set the base address before the site's own resources.
+          const base = '<base href="' + BASE_URL + '">';
+          let documentHTML;
+
+          if (/<head\b[^>]*>/i.test(html)) {
+            documentHTML = html.replace(
+              /<head\b[^>]*>/i,
+              function (head) {
+                return head + base;
+              }
+            );
+          } else {
+            documentHTML =
+              "<!doctype html><html><head>" + base +
+              "</head><body>" + html + "</body></html>";
+          }
+
+          frame.srcdoc = documentHTML;
+          container.setAttribute("visibility", "visible");
+          status.textContent = "";
+
+        } catch (error) {
+          status.textContent = "Load failed: " + error.message;
+        } finally {
+          busy = false;
+        }
+      }
+
+      loadSite();
+      setInterval(loadSite, 60000);
     }());
   ]]></script>
 </svg>
