@@ -22,8 +22,8 @@ const MAX_MESSAGES = 30;
 const MAX_MESSAGE_CHARS = 8_000;
 const MAX_TOTAL_CHARS = 20_000;
 const MAX_OUTPUT_TOKENS = 1_000;
-const RATE_LIMIT = 12;
-const RATE_WINDOW_SECONDS = 60;
+const RATE_LIMIT = 5;
+const RATE_WINDOW_SECONDS = 24 * 60 * 60;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -85,7 +85,7 @@ Deno.serve(async (req) => {
     console.error("AI rate-limit check failed", rateError.message);
     return json({ error: "Chat protection is unavailable. Try again later." }, 503);
   }
-  if (rateAllowed !== true) return json({ error: "Too many requests. Wait a minute and try again." }, 429);
+  if (rateAllowed !== true) return json({ error: "Daily chat limit reached. Try again tomorrow." }, 429);
 
   const apiKey = Deno.env.get(provider === "freeai" ? "FREE_AI_API_KEY" : "ZAI_API_KEY");
   if (!apiKey) return json({ error: `${provider === "freeai" ? "Free.ai" : "z.ai"} is not configured.` }, 503);
