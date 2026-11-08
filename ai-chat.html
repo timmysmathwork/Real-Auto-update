@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07120c" />
+  <title>Timmy's Math Work — AI Chat</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07120c; --panel:#12351f; --panel2:#1a4d2c; --border:#34734a; --text:#effff2; --muted:#a7c8ad; --green:#55c878; --red:#ff7979; }
+    * { box-sizing:border-box; }
+    body { min-height:100vh; margin:0; padding:24px; display:grid; place-items:center; background:var(--bg); color:var(--text); font:16px/1.5 Arial,sans-serif; }
+    button,input,textarea,select { font:inherit; }
+    button { cursor:pointer; }
+    .shell { width:min(760px,100%); }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    h1 { margin:0; font-size:clamp(23px,5vw,32px); }
+    .subtitle,.hint { color:var(--muted); font-size:13px; }
+    .card { padding:20px; border:1px solid var(--border); border-radius:14px; background:var(--panel); }
+    .notice { margin:0 0 16px; padding:11px 13px; border:1px solid var(--border); border-radius:9px; background:rgba(85,200,120,.08); color:var(--muted); font-size:13px; }
+    label { display:block; margin:12px 0 5px; font-size:13px; font-weight:700; }
+    input,textarea,select { width:100%; padding:11px 12px; border:1px solid var(--border); border-radius:8px; background:#07120c; color:var(--text); }
+    textarea { min-height:84px; max-height:220px; resize:vertical; }
+    .row { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-top:12px; }
+    .row > * { flex:1; }
+    .button { padding:10px 14px; border:0; border-radius:8px; background:#258044; color:#fff; font-weight:700; }
+    .button.secondary { border:1px solid var(--border); background:transparent; }
+    .button:disabled { cursor:not-allowed; opacity:.5; }
+    .auth-actions { display:flex; gap:9px; margin-top:14px; }
+    .auth-actions button { flex:1; }
+    #chat-card[hidden],#auth-card[hidden] { display:none; }
+    #conversation { display:grid; gap:12px; max-height:52vh; overflow:auto; margin:16px 0; padding:2px; }
+    .message { max-width:90%; padding:12px 14px; border:1px solid var(--border); border-radius:11px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .message.user { justify-self:end; background:var(--panel2); }
+    .message.assistant { justify-self:start; background:#0d2417; }
+    .message-label { display:block; margin-bottom:4px; color:var(--muted); font-size:10px; font-weight:700; text-transform:uppercase; }
+    #status { min-height:22px; margin-top:10px; color:var(--muted); font-size:13px; }
+    #status.error { color:var(--red); }
+    #status.success { color:var(--green); }
+    @media (max-width:520px) { body { padding:14px; } .card { padding:15px; } header { align-items:flex-start; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><h1>AI Chat</h1><div class="subtitle">Timmy's Math Work</div></div>
+      <a href="./updated-site.html" style="color:var(--green)">Back to site</a>
+    </header>
+
+    <section id="auth-card" class="card">
+      <p class="notice">Sign in to chat. Each account can make up to <strong>5 AI chat requests per 24-hour window</strong>.</p>
+      <h2>Sign in or create an account</h2>
+      <p class="hint">Use your email and a password. If email confirmation is enabled, confirm your address before signing in.</p>
+      <form id="auth-form">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required maxlength="254" />
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required minlength="6" />
+        <div class="auth-actions">
+          <button class="button" type="submit" id="sign-in">Sign in</button>
+          <button class="button secondary" type="button" id="sign-up">Create account</button>
+        </div>
+      </form>
+      <div id="auth-status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="chat-card" class="card" hidden>
+      <p class="notice">Daily allowance: <strong>5 chat requests per user per 24-hour window</strong>. The server enforces this limit.</p>
+      <div class="row" style="margin-top:0">
+        <div id="signed-in-as" class="hint" aria-live="polite"></div>
+        <button id="sign-out" class="button secondary" type="button" style="flex:0 0 auto">Sign out</button>
+      </div>
+      <label for="provider">AI provider</label>
+      <select id="provider"><option value="freeai">Free.ai</option><option value="zai">z.ai</option></select>
+      <div id="conversation" aria-live="polite" aria-label="Chat messages"></div>
+      <form id="chat-form">
+        <label for="prompt">Your message</label>
+        <textarea id="prompt" maxlength="8000" placeholder="Ask a question..." required></textarea>
+        <div class="row"><button id="send" class="button" type="submit">Send</button><button id="new-chat" class="button secondary" type="button">New chat</button></div>
+      </form>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    // Supabase anon/publishable keys are intended for browser use. Never put a service-role key here.
+    const SUPABASE_URL = "https://xcbbhaqbbeexatxihhvb.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjYmJoYXFiYmVleGF0eGloaHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMzM4OTgsImV4cCI6MjEwOTcwOTg5OH0.YEGPFZQJjUbapL5N0fvDvfEZv2NMOmSPV0xvHxHDkrE";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const $ = (id) => document.getElementById(id);
+    const authCard = $("auth-card"), chatCard = $("chat-card");
+    const authStatus = $("auth-status"), status = $("status");
+    const conversationEl = $("conversation"), promptEl = $("prompt"), sendButton = $("send");
+    let conversation = [];
+    let busy = false;
+
+    function setStatus(element, message, kind = "") {
+      element.textContent = message;
+      element.className = kind;
+    }
+
+    function showSession(session) {
+      const signedIn = Boolean(session?.user);
+      authCard.hidden = signedIn;
+      chatCard.hidden = !signedIn;
+      if (signedIn) $("signed-in-as").textContent = `Signed in as ${session.user.email || "your account"}`;
+      else {
+        conversation = [];
+        conversationEl.replaceChildren();
+      }
+    }
+
+    function addMessage(role, text) {
+      const item = document.createElement("div");
+      item.className = `message ${role}`;
+      const label = document.createElement("span");
+      label.className = "message-label";
+      label.textContent = role === "user" ? "You" : "Assistant";
+      const content = document.createElement("div");
+      content.textContent = text;
+      item.append(label, content);
+      conversationEl.append(item);
+      conversationEl.scrollTop = conversationEl.scrollHeight;
+      return content;
+    }
+
+    $("auth-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      setStatus(authStatus, "Signing in...");
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) setStatus(authStatus, error.message, "error");
+      else setStatus(authStatus, "Signed in.", "success");
+    });
+
+    $("sign-up").addEventListener("click", async () => {
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      if (!email || password.length < 6) {
+        setStatus(authStatus, "Enter a valid email and a password with at least 6 characters.", "error");
+        return;
+      }
+      setStatus(authStatus, "Creating account...");
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) setStatus(authStatus, error.message, "error");
+      else if (!data.session) setStatus(authStatus, "Account created. Check your email to confirm it, then sign in.", "success");
+      else setStatus(authStatus, "Account created and signed in.", "success");
+    });
+
+    $("sign-out").addEventListener("click", async () => {
+      const { error } = await supabase.auth.signOut();
+      if (error) setStatus(status, error.message, "error");
+      else setStatus(authStatus, "You have been signed out.");
+    });
+
+    $("new-chat").addEventListener("click", () => {
+      conversation = [];
+      conversationEl.replaceChildren();
+      setStatus(status, "New chat started.");
+      promptEl.focus();
+    });
+
+    $("chat-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const text = promptEl.value.trim();
+      if (!text || busy) return;
+      busy = true;
+      sendButton.disabled = true;
+      promptEl.disabled = true;
+      setStatus(status, "Thinking...");
+      promptEl.value = "";
+      conversation.push({ role: "user", content: text });
+      addMessage("user", text);
+      const answerElement = addMessage("assistant", "Thinking...");
+      try {
+        // Keep requests within the Edge Function's message and conversation size limits.
+        let messages = conversation.slice(-30);
+        let totalChars = messages.reduce((sum, message) => sum + message.content.length, 0);
+        while (messages.length > 1 && totalChars > 20_000) {
+          const removed = messages.shift();
+          totalChars -= removed.content.length;
+        }
+        const { data, error } = await supabase.functions.invoke("ai-chat", {
+          body: { provider: $("provider").value, messages },
+        });
+        if (error) {
+          let detail = error.message || "The chat request failed.";
+          try {
+            const response = error.context;
+            if (response?.status === 429) detail = "Daily chat limit reached. You can send up to 5 requests per 24-hour window. Try again later.";
+            else if (response?.json) {
+              const body = await response.clone().json();
+              if (body?.error) detail = body.error;
+            }
+          } catch { /* Keep the Supabase error message if the response isn't JSON. */ }
+          throw new Error(detail);
+        }
+        if (typeof data?.answer !== "string" || !data.answer.trim()) throw new Error("The AI provider returned no text.");
+        answerElement.textContent = data.answer;
+        conversation.push({ role: "assistant", content: data.answer });
+        setStatus(status, "Ready.", "success");
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "The request failed. Try again.";
+        answerElement.textContent = message;
+        setStatus(status, message, "error");
+      } finally {
+        busy = false;
+        sendButton.disabled = false;
+        promptEl.disabled = false;
+        promptEl.focus();
+      }
+    });
+
+    const { data: { session } } = await supabase.auth.getSession();
+    showSession(session);
+    supabase.auth.onAuthStateChange((_event, nextSession) => showSession(nextSession));
+  </script>
+</body>
+</html>
